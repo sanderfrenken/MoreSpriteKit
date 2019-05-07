@@ -4,7 +4,7 @@ let defaultTransition = SKTransition.doorway(withDuration: 1)
 
 var randomPosition: CGPoint {
     let randomX = CGFloat(arc4random_uniform(200))-100.0
-    let randomY = CGFloat(arc4random_uniform(300))-50.0
+    let randomY = CGFloat(arc4random_uniform(300))-150.0
     return CGPoint(x: randomX, y: randomY)
 }
 

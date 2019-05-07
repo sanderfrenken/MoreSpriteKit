@@ -10,7 +10,7 @@ class DemoSceneArrowNode: DemoScene {
 
     private func addArrowNodes() {
         for _ in 0...10 {
-            let arrow = MSKArrowNode(fillColor: randomColor, strokeColor: randomColor, lineWidth: 4, length: 100, tailWidth: 20, headWidth: 50, headLength: 30)
+            let arrow = SKShapeNode(arrowWithFillColor: randomColor, strokeColor: randomColor, lineWidth: 4, length: 100, tailWidth: 20, headWidth: 50, headLength: 30)
             arrow.position = randomPosition
             addChild(arrow)
         }

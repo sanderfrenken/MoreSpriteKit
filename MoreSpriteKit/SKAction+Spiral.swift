@@ -10,7 +10,8 @@ extension SKAction {
         let action = SKAction.customAction(withDuration: duration) { node, time in
             let θ = totalAngle * time / CGFloat(duration)
             let radius = startRadius + radiusPerRevolution * θ
-            node.position = pointOnCircle(angle: θ, radius: radius, center: centerPoint)
+            node.position = CGPoint(x: centerPoint.x + radius * cos(θ),
+                                    y: centerPoint.y + radius * sin(θ))
         }
 
         return action
