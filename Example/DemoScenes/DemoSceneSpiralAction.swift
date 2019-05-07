@@ -19,7 +19,6 @@ class DemoSceneSpiralAction: DemoScene {
         emitter.targetNode = self
         var radius: CGFloat = 250
         for idx in 0...4 {
-
             let spiralFor = SKAction.spiral(startRadius: radius,
                                             endRadius: radius-50,
                                             totalAngle: CGFloat(.pi * 2.0),
