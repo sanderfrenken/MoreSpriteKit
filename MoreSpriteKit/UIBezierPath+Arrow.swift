@@ -2,7 +2,7 @@ import UIKit
 
 extension UIBezierPath {
 
-    public class func arrow(from start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) -> Self {
+    public convenience init (arrowFromStart start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) {
         let length = hypot(end.x - start.x, end.y - start.y)
         let tailLength = length - headLength
 
@@ -22,6 +22,6 @@ extension UIBezierPath {
         let path = CGMutablePath()
         path.addLines(between: points, transform: transform)
         path.closeSubpath()
-        return self.init(cgPath: path)
+        self.init(cgPath: path)
     }
 }
