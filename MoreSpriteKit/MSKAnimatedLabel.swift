@@ -17,10 +17,6 @@ public class MSKAnimatedLabel: SKNode {
     private var currentLineNumber = 0
     private var currentPositionOnLine = 0
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster") {
         self.lines = text.components(separatedBy: CharacterSet.newlines)
         self.horizontalAlignment = horizontalAlignment
@@ -31,6 +27,10 @@ public class MSKAnimatedLabel: SKNode {
         self.fontColor = fontColor
         super.init()
         startTyping()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     public func update(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster") {

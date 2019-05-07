@@ -1,64 +1,38 @@
 import SpriteKit
-import MoreSpriteKit
 
 class GameScene: SKScene {
-    
+
     override func didMove(to view: SKView) {
         backgroundColor = .black
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addAnimatedLabel()
+        addButtons()
     }
 
-    private func addAnimatedLabel() {
-        let label = MSKAnimatedLabel(text: animatedLabelText)
-        addChild(label)
-        label.run(
-            .repeatForever(
-                .sequence([
-                    .wait(forDuration: 10.0),
-                    .run {
-                        let randomProperties = self.randomLabelProperties
-                        label.update(text: self.animatedLabelText, horizontalAlignment: randomProperties.horizontalAlignment, durationPerCharacter: randomProperties.durationPerCharacter, fontSize: randomProperties.fontSize)
-                    }
-                    ])
-            )
-        )
+    private func addButtons() {
+        addButton(buttonName: .shakeAction, position: CGPoint(x: 0, y: 0), scene: self)
+        addButton(buttonName: .animatedLabel, position: CGPoint(x: 0, y: 50), scene: self)
+        addButton(buttonName: .radialGradient, position: CGPoint(x: 0, y: 100), scene: self)
+        addButton(buttonName: .arrowNode, position: CGPoint(x: 0, y: 150), scene: self)
+        addButton(buttonName: .spiralAction, position: CGPoint(x: 0, y: 200), scene: self)
     }
 
-    private var randomLabelProperties: (horizontalAlignment: SKLabelHorizontalAlignmentMode, durationPerCharacter: Double, fontSize: CGFloat) {
-        let randomAlignment: [SKLabelHorizontalAlignmentMode] = [.center, .right, .left]
-        let randomDurations = [0.05, 0.025, 0.1]
-        let randomFonts: [CGFloat] = [7.0, 10.0, 13.0]
-
-        return(randomAlignment.randomElement()!, randomDurations.randomElement()!, randomFonts.randomElement()!)
-    }
-
-    private var animatedLabelText: String {
-        let sentence = "hello kind world..\n"
-        var text = sentence
-        for _ in 0..<10 {
-            text.append(sentence)
-        }
-        return text
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-
+        super.touchesBegan(touches, with: event)
+        guard let view = self.view else { return }
+        let sceneSize = view.frame.size
+        if let touch = touches.first {
+            let nodeNameTouched = self.atPoint(touch.location(in: self)).name ?? ""
+            if nodeNameTouched == ButtonName.animatedLabel.rawValue {
+                view.presentScene(DemoSceneAnimatedLabel(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.radialGradient.rawValue {
+                view.presentScene(DemoSceneRadielGradient(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.arrowNode.rawValue {
+                view.presentScene(DemoSceneArrowNode(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.shakeAction.rawValue {
+                view.presentScene(DemoSceneShakeAction(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.spiralAction.rawValue {
+                view.presentScene(DemoSceneSpiralAction(size: sceneSize), transition: defaultTransition)
+            }
+        }
     }
 }

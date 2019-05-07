@@ -1,6 +1,5 @@
 import UIKit
 import SpriteKit
-import GameplayKit
 
 class GameViewController: UIViewController {
 
@@ -13,11 +12,6 @@ class GameViewController: UIViewController {
 
         skView.showsFPS = true
         skView.showsNodeCount = true
-        skView.showsDrawCount = false
-        skView.showsFields = false
-        skView.showsPhysics = false
-        skView.showsQuadCount = false
-
         skView.preferredFramesPerSecond = 60
         skView.shouldCullNonVisibleNodes = true
         skView.ignoresSiblingOrder = true
