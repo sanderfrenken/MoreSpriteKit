@@ -15,11 +15,9 @@ class DemoSceneShakeAction: DemoScene {
     }
 
     private func shakeChildren() {
-        for child in self.children {
-            if child.name != ButtonName.back.rawValue {
-                let shakeAction = SKAction.shake(shakeDuration: 0.2, intensity: arc4random_uniform(40)+10, duration: 3)
-                child.run(shakeAction)
-            }
+        for child in self.children where child.name != ButtonName.back.rawValue {
+            let shakeAction = SKAction.shake(shakeDuration: 0.2, intensity: arc4random_uniform(40)+10, duration: 3)
+            child.run(shakeAction)
         }
     }
 

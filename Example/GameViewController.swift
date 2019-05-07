@@ -5,7 +5,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         guard let skView = self.view as? SKView else {
             fatalError("SKView could not be referenced")
         }

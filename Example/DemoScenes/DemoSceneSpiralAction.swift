@@ -5,9 +5,12 @@ class DemoSceneSpiralAction: DemoScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        run(.repeatForever(.sequence([.run {
-            self.addSpiralNode()
-            },.wait(forDuration: 8)])))
+        run(.repeatForever(.sequence([
+            .run {
+                self.addSpiralNode()
+            },
+            .wait(forDuration: 8)]
+        )))
         addSpiralNode()
     }
 
@@ -15,14 +18,14 @@ class DemoSceneSpiralAction: DemoScene {
         guard let emitter = SKEmitterNode(fileNamed: "spiralParticle") else { return }
         emitter.targetNode = self
         var radius: CGFloat = 250
-        for i in 0...4 {
+        for idx in 0...4 {
 
             let spiralFor = SKAction.spiral(startRadius: radius,
                                             endRadius: radius-50,
-                                            angle: CGFloat(.pi * 2.0),
+                                            totalAngle: CGFloat(.pi * 2.0),
                                             centerPoint: .zero,
                                             duration: 1.5)
-            emitter.run(.sequence([.wait(forDuration: 1.5 * Double(i)),spiralFor]))
+            emitter.run(.sequence([.wait(forDuration: 1.5 * Double(idx)), spiralFor]))
             radius -= 50
         }
         addChild(emitter)

@@ -2,7 +2,7 @@ import MoreSpriteKit
 import SpriteKit
 
 class DemoSceneAnimatedLabel: DemoScene {
-    
+
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         addAnimatedLabel()
@@ -31,7 +31,7 @@ class DemoSceneAnimatedLabel: DemoScene {
         }
         return text
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
     }

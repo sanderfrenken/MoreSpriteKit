@@ -6,15 +6,14 @@ extension UIBezierPath {
         let length = hypot(end.x - start.x, end.y - start.y)
         let tailLength = length - headLength
 
-        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { return CGPoint(x: x, y: y) }
         let points: [CGPoint] = [
-            p(0, tailWidth / 2),
-            p(tailLength, tailWidth / 2),
-            p(tailLength, headWidth / 2),
-            p(length, 0),
-            p(tailLength, -headWidth / 2),
-            p(tailLength, -tailWidth / 2),
-            p(0, -tailWidth / 2)
+            .init(x: 0, y: tailWidth / 2),
+            .init(x: tailLength, y: tailWidth / 2),
+            .init(x: tailLength, y: headWidth / 2),
+            .init(x: length, y: 0),
+            .init(x: tailLength, y: -headWidth / 2),
+            .init(x: tailLength, y: -tailWidth / 2),
+            .init(x: 0, y: -tailWidth / 2)
         ]
 
         let cosine = (end.x - start.x) / length
