@@ -33,15 +33,9 @@ public class MSKAnimatedLabel: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func update(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster") {
+    public func update(text: String) {
         removeTimer()
         self.lines = text.components(separatedBy: CharacterSet.newlines)
-        self.horizontalAlignment = horizontalAlignment
-        self.durationPerCharacter = durationPerCharacter
-        self.fontSize = fontSize
-        self.marginVertical = marginVertical
-        self.fontName = fontName
-        self.fontColor = fontColor
         startTyping()
     }
 
