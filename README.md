@@ -108,4 +108,4 @@ This project contains an application target being a demo project that demonstrat
 
 - If you think that something is missing or would like to propose new feature, please create an issue.
 - Please feel free to ⭐️ the project. This gives confidence that you like it which stimulates further development and support 🤩
-- Do you use MoreSpriteKit in any of your applications? Please let me know, would love to see your creations!
+- Do you use MoreSpriteKit in any of your applications? Please let me know, I would love to see your creations!
