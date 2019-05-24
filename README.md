@@ -18,10 +18,16 @@ SKNode that draws specified text over multiple lines, separated per newLine char
 The text typing can also be animated, meaning each character will be added after a specified interval, creating a typewriter effect.
 
 ### SKAction+Spiral
-![Spiral](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
 
 ### SKAction+Shake
-![Spiral](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/shake-action.gif)
+
+### SKShapeNode+Arrow
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/skshapenode-arrow.png)
+
+### SKTexture+RadialGradient
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/sktexture-gradient.png)
 
 ## Requirements
 
