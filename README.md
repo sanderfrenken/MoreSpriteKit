@@ -5,17 +5,23 @@ This repository offers additional node types and effects which you can use in co
 ## Features
 
 - [x] Animated multiline label
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
 - [x] SKAction for spiraling movement
-![Spiral](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
 - [x] SKAction for shaking nodes
 ![Shake](https://github.com/sanderfrenken/MoreSpriteKit/Previews/animated-label.gif)
 - [x] SKShapeNode convenience init for arrow shape
 - [x] SKTexture convenience init for radial gradient
 
 ### MSKAnimatedLabel
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
+
 SKNode that draws specified text over multiple lines, separated per newLine character. 
 The text typing can also be animated, meaning each character will be added after a specified interval, creating a typewriter effect.
+
+### SKAction+Spiral
+![Spiral](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
+
+### SKAction+Shake
+![Spiral](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
 
 ## Requirements
 
