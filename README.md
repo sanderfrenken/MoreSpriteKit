@@ -5,7 +5,7 @@ This repository offers additional node types and effects which you can use in co
 ## Features
 
 - [x] Animated multiline label
-![Label](https://github.com/sanderfrenken/MoreSpriteKit/Previews/animated-label.gif)
+![Label](https://github.com/sanderfrenken/MoreSpriteKit/tree/master/Previews/animated-label.gif)
 - [x] SKAction for shaking nodes
 ![Shake](https://github.com/sanderfrenken/MoreSpriteKit/Previews/animated-label.gif)
 - [x] SKAction for spiraling movement
