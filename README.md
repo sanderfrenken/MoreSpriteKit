@@ -12,7 +12,7 @@ This repository offers additional node types and effects which you can use in co
 - [x] SKShapeNode convenience init for arrow shape
 - [x] SKTexture convenience init for radial gradient
 
-![Label](https://github.com/sanderfrenken/MoreSpriteKit/tree/master/Previews/animated-label.gif)
+![Label](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
 
 ### MSKAnimatedLabel
 SKNode that draws specified text over multiple lines, separated per newLine character. 
