@@ -1,6 +1,6 @@
 # MoreSpriteKit
 
-This repository offers additional node types and effects which you can use in combination with **SpriteKit**.  All sources are written in Swift. 
+This repository offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/).  All sources are written in Swift. 
 
 ### MSKAnimatedLabel
 
@@ -39,6 +39,8 @@ SKAction.spiral(startRadius: radius,
 ### SKAction+Shake
 
 Extension on SKAction allowing to create a shake effect.
+*NB preview as GIF is not very useful, for proper demonstration please see the example application.*
+
 Usage:
 ```
 SKAction.shake(shakeDuration: 0.2, 
@@ -46,7 +48,7 @@ SKAction.shake(shakeDuration: 0.2,
                duration: 3)
 ```
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/shake-action.gif)
-NB preview as GIF is not very useful, for proper demonstration please see the example application.
+
 
 ### SKShapeNode+Arrow
 Extension on SKShapeNode allowing to create a node with an arrow shape.
