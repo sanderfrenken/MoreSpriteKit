@@ -2,15 +2,6 @@
 
 This repository offers additional node types and effects which you can use in combination with **SpriteKit**.  All sources are written in Swift. 
 
-## Features
-
-- [x] Animated multiline label
-- [x] SKAction for spiraling movement
-- [x] SKAction for shaking nodes
-![Shake](https://github.com/sanderfrenken/MoreSpriteKit/Previews/animated-label.gif)
-- [x] SKShapeNode convenience init for arrow shape
-- [x] SKTexture convenience init for radial gradient
-
 ### MSKAnimatedLabel
 
 SKNode that draws specified text over multiple lines, separated per newLine character. 
