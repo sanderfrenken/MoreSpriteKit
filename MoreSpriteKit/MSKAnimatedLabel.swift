@@ -11,13 +11,14 @@ public class MSKAnimatedLabel: SKNode {
     private var fontColor: SKColor
     private var fontName: String
     private var marginVertical: CGFloat
+    private var skipSpaces: Bool
 
     private var labels = [SKLabelNode]()
     private var lines: [String]?
     private var currentLineNumber = 0
     private var currentPositionOnLine = 0
 
-    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster") {
+    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster", skipSpaces: Bool = true) {
         self.lines = text.components(separatedBy: CharacterSet.newlines)
         self.horizontalAlignment = horizontalAlignment
         self.durationPerCharacter = durationPerCharacter
@@ -25,8 +26,9 @@ public class MSKAnimatedLabel: SKNode {
         self.marginVertical = marginVertical
         self.fontName = fontName
         self.fontColor = fontColor
+        self.skipSpaces = skipSpaces
         super.init()
-        startTyping()
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,30 +37,30 @@ public class MSKAnimatedLabel: SKNode {
 
     public func update(text: String) {
         removeTimer()
-        self.lines = text.components(separatedBy: CharacterSet.newlines)
-        startTyping()
+        self.lines = text.components(separatedBy: .newlines)
+        setup()
     }
 
-    private func startTyping() {
-        currentLineNumber = 0
-        currentPositionOnLine = 0
+    private func setup() {
         createLabels()
-
-        run(.repeatForever(.sequence([
-            .wait(forDuration: durationPerCharacter),
-            .run { self.typeText()}
-            ])), withKey: timerActionKey)
+        if shouldAnimate {
+            startTyping()
+        }
     }
 
     private func createLabels() {
         resetLabels()
 
-        lines?.forEach { _ in
+        lines?.forEach { line in
             let label = SKLabelNode(fontNamed: fontName)
             label.horizontalAlignmentMode = horizontalAlignment
             label.fontSize = fontSize
             label.fontColor = fontColor
-            label.text = ""
+            if shouldAnimate {
+                label.text = ""
+            } else {
+                label.text = line
+            }
             labels.append(label)
         }
 
@@ -75,6 +77,20 @@ public class MSKAnimatedLabel: SKNode {
             label.removeFromParent()
         }
         labels = [SKLabelNode]()
+    }
+
+    private var shouldAnimate: Bool {
+        return durationPerCharacter > 0.0
+    }
+
+    private func startTyping() {
+        currentLineNumber = 0
+        currentPositionOnLine = 0
+
+        run(.repeatForever(.sequence([
+            .wait(forDuration: durationPerCharacter),
+            .run { self.typeText()}
+            ])), withKey: timerActionKey)
     }
 
     private func typeText() {
@@ -103,6 +119,9 @@ public class MSKAnimatedLabel: SKNode {
             let newCharacter = Array(currentLine)[currentPositionOnLine]
             labels[currentLineNumber].text! += String(newCharacter)
             currentPositionOnLine += 1
+            if newCharacter == " " && skipSpaces {
+                typeText()
+            }
         }
     }
 

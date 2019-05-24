@@ -1,6 +1,6 @@
 import SpriteKit
 
-let defaultTransition = SKTransition.doorway(withDuration: 1)
+let defaultTransition = SKTransition.fade(with: .black, duration: 1)
 
 var randomPosition: CGPoint {
     let randomX = CGFloat(arc4random_uniform(200))-100.0
