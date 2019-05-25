@@ -1,3 +1,5 @@
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 # MoreSpriteKit
 
 This repository offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/).  All sources are written in Swift. 
@@ -80,15 +82,15 @@ let radialNode = SKSpriteNode(texture: radialTexture)
 ```
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/sktexture-gradient.png)
 
-## Requirements
+### Requirements
 
 - iOS 10.3+
 - Xcode 10.1+
 - Swift 5+
 
-## Installation
+### Installation
 
-### Carthage
+#### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate MoreSpriteKit into your Xcode project using Carthage, specify it in your `Cartfile`:
 
@@ -96,11 +98,11 @@ let radialNode = SKSpriteNode(texture: radialTexture)
 github "sanderfrenken/MoreSpriteKit" "master"
 ```
 
-### Manually
+#### Manually
 
 If you prefer not to use any of the aforementioned dependency managers, you can integrate the desired sources in your project manually, by adding the corresponding Swift files to your project.
 
-## Demo app
+### Demo app
 
 This project contains an application target being a demo project that demonstrates the usage of all offered functionalities. 
 
@@ -109,3 +111,7 @@ This project contains an application target being a demo project that demonstrat
 - If you think that something is missing or would like to propose new feature, please create an issue.
 - Please feel free to ⭐️ the project. This gives confidence that you like it which stimulates further development and support 🤩
 - Do you use MoreSpriteKit in any of your applications? Please let me know, I would love to see your creations!
+
+### License
+
+[MIT](https://opensource.org/licenses/MIT)
