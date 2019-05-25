@@ -1,4 +1,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat) 
+![Platform support](https://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat-square)
 
 # MoreSpriteKit
 
@@ -101,6 +103,12 @@ github "sanderfrenken/MoreSpriteKit" "master"
 #### Manually
 
 If you prefer not to use any of the aforementioned dependency managers, you can integrate the desired sources in your project manually, by adding the corresponding Swift files to your project.
+
+### SwiftLint
+
+We use Swiftlint from [Realm](https://realm.io/) to lint our code. SwiftLint has to be installed on your device. 
+More info can be found on [SwiftLint](https://github.com/realm/SwiftLint). 
+Details about the specific settings for this project can be found in the `.swiftlint.yml` file.
 
 ### Demo app
 
