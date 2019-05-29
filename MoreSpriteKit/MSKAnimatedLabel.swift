@@ -1,17 +1,16 @@
-import Foundation
 import SpriteKit
 
 public class MSKAnimatedLabel: SKNode {
 
     private let timerActionKey = "timerActionKey"
 
-    private var horizontalAlignment: SKLabelHorizontalAlignmentMode
-    private var durationPerCharacter: Double
-    private var fontSize: CGFloat
-    private var fontColor: SKColor
-    private var fontName: String
-    private var marginVertical: CGFloat
-    private var skipSpaces: Bool
+    private let horizontalAlignment: SKLabelHorizontalAlignmentMode
+    private let durationPerCharacter: Double
+    private let fontSize: CGFloat
+    private let fontColor: SKColor
+    private let fontName: String
+    private let marginVertical: CGFloat
+    private let skipSpaces: Bool
 
     private var labels = [SKLabelNode]()
     private var lines: [String]?

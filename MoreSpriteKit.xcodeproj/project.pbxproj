@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5337D963229B1522005E6E5B /* UIBezierPath+Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5337D962229B1522005E6E5B /* UIBezierPath+Character.swift */; };
+		5337D965229B160C005E6E5B /* DemoSceneEmitterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5337D964229B160C005E6E5B /* DemoSceneEmitterLabel.swift */; };
+		5337D967229B1BB4005E6E5B /* emitterLabel.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5337D966229B1BB4005E6E5B /* emitterLabel.sks */; };
+		5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */; };
 		53AA0BCC2281592B004ABC92 /* SKTexture+RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */; };
 		53AA0BCE22815988004ABC92 /* DemoSceneRadielGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */; };
 		53AA0BD022815A76004ABC92 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCF22815A76004ABC92 /* GameScene.swift */; };
@@ -22,6 +26,8 @@
 		53AA0BE9228174C7004ABC92 /* MoreSpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D1F2DA227F6EF600B219D5 /* MoreSpriteKit.framework */; };
 		53AA0BEB22817558004ABC92 /* MoreSpriteKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D1F2DA227F6EF600B219D5 /* MoreSpriteKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53AA0BED22819CB3004ABC92 /* SKShapeNode+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BEC22819CB3004ABC92 /* SKShapeNode+Arrow.swift */; };
+		53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C3C86D229F05290087B447 /* CGPath+ForEach.swift */; };
+		53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */; };
 		53CD28A2227F700C00EF590C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A1227F700C00EF590C /* AppDelegate.swift */; };
 		53CD28A8227F700C00EF590C /* DemoSceneAnimatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A7227F700C00EF590C /* DemoSceneAnimatedLabel.swift */; };
 		53CD28AA227F700C00EF590C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A9227F700C00EF590C /* GameViewController.swift */; };
@@ -81,6 +87,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5337D962229B1522005E6E5B /* UIBezierPath+Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Character.swift"; sourceTree = "<group>"; };
+		5337D964229B160C005E6E5B /* DemoSceneEmitterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneEmitterLabel.swift; sourceTree = "<group>"; };
+		5337D966229B1BB4005E6E5B /* emitterLabel.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = emitterLabel.sks; sourceTree = "<group>"; };
+		5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKEmitterLabel.swift; sourceTree = "<group>"; };
 		53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKTexture+RadialGradient.swift"; sourceTree = "<group>"; };
 		53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneRadielGradient.swift; sourceTree = "<group>"; };
 		53AA0BCF22815A76004ABC92 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -94,6 +104,8 @@
 		53AA0BE422816E85004ABC92 /* DemoSceneShakeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneShakeAction.swift; sourceTree = "<group>"; };
 		53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKAction+Shake.swift"; sourceTree = "<group>"; };
 		53AA0BEC22819CB3004ABC92 /* SKShapeNode+Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKShapeNode+Arrow.swift"; sourceTree = "<group>"; };
+		53C3C86D229F05290087B447 /* CGPath+ForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+ForEach.swift"; sourceTree = "<group>"; };
+		53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+GetPaths.swift"; sourceTree = "<group>"; };
 		53CD289F227F700C00EF590C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53CD28A1227F700C00EF590C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53CD28A7227F700C00EF590C /* DemoSceneAnimatedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneAnimatedLabel.swift; sourceTree = "<group>"; };
@@ -167,11 +179,12 @@
 		53AA0BD122815B97004ABC92 /* DemoScenes */ = {
 			isa = PBXGroup;
 			children = (
+				5337D964229B160C005E6E5B /* DemoSceneEmitterLabel.swift */,
 				53CD28A7227F700C00EF590C /* DemoSceneAnimatedLabel.swift */,
+				53AA0BE422816E85004ABC92 /* DemoSceneShakeAction.swift */,
+				53AA0BE0228169D2004ABC92 /* DemoSceneSpiralAction.swift */,
 				53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */,
 				53AA0BDA228163B5004ABC92 /* DemoSceneArrowNode.swift */,
-				53AA0BE0228169D2004ABC92 /* DemoSceneSpiralAction.swift */,
-				53AA0BE422816E85004ABC92 /* DemoSceneShakeAction.swift */,
 				53AA0BD222815BBF004ABC92 /* DemoScene.swift */,
 			);
 			path = DemoScenes;
@@ -190,6 +203,7 @@
 				53CD28B0227F700E00EF590C /* LaunchScreen.storyboard */,
 				53AA0BE222816A05004ABC92 /* spiralParticle.sks */,
 				53CD28B3227F700E00EF590C /* Info.plist */,
+				5337D966229B1BB4005E6E5B /* emitterLabel.sks */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -241,12 +255,16 @@
 			isa = PBXGroup;
 			children = (
 				53D1F2DE227F6EF600B219D5 /* Info.plist */,
+				53C3C86D229F05290087B447 /* CGPath+ForEach.swift */,
+				53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */,
 				53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */,
+				5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */,
 				53AA0BDC228166F5004ABC92 /* SKAction+Spiral.swift */,
 				53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */,
 				53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */,
 				53AA0BEC22819CB3004ABC92 /* SKShapeNode+Arrow.swift */,
 				53AA0BD822816102004ABC92 /* UIBezierPath+Arrow.swift */,
+				5337D962229B1522005E6E5B /* UIBezierPath+Character.swift */,
 			);
 			path = MoreSpriteKit;
 			sourceTree = "<group>";
@@ -422,6 +440,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5337D967229B1BB4005E6E5B /* emitterLabel.sks in Resources */,
 				53AA0BE322816A05004ABC92 /* spiralParticle.sks in Resources */,
 				53CD28AD227F700C00EF590C /* Main.storyboard in Resources */,
 				53CD28AF227F700E00EF590C /* Assets.xcassets in Resources */,
@@ -476,7 +495,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -491,6 +510,7 @@
 				53AA0BD522815EE9004ABC92 /* Utils.swift in Sources */,
 				53AA0BCE22815988004ABC92 /* DemoSceneRadielGradient.swift in Sources */,
 				53AA0BDB228163B5004ABC92 /* DemoSceneArrowNode.swift in Sources */,
+				5337D965229B160C005E6E5B /* DemoSceneEmitterLabel.swift in Sources */,
 				53AA0BE522816E85004ABC92 /* DemoSceneShakeAction.swift in Sources */,
 				53CD28A2227F700C00EF590C /* AppDelegate.swift in Sources */,
 				53AA0BE1228169D2004ABC92 /* DemoSceneSpiralAction.swift in Sources */,
@@ -519,9 +539,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				53AA0BE722816F27004ABC92 /* SKAction+Shake.swift in Sources */,
+				5337D963229B1522005E6E5B /* UIBezierPath+Character.swift in Sources */,
 				53AA0BD922816102004ABC92 /* UIBezierPath+Arrow.swift in Sources */,
 				53AA0BDD228166F5004ABC92 /* SKAction+Spiral.swift in Sources */,
+				53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */,
+				53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */,
 				53AA0BED22819CB3004ABC92 /* SKShapeNode+Arrow.swift in Sources */,
+				5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */,
 				53AA0BCC2281592B004ABC92 /* SKTexture+RadialGradient.swift in Sources */,
 				53CD28D6227F71B100EF590C /* MSKAnimatedLabel.swift in Sources */,
 			);

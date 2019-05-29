@@ -1,6 +1,7 @@
 import SpriteKit
 
 extension SKAction {
+
     public static func shake(shakeDuration: Double = 0.20, intensity: UInt32 = 20, duration: Double) -> SKAction {
 
         let singleShakeDuration = shakeDuration/2

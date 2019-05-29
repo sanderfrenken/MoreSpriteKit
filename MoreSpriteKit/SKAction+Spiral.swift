@@ -1,6 +1,7 @@
 import SpriteKit
 
 extension SKAction {
+
     // Adapted from
     // https://stackoverflow.com/questions/30427482/moving-a-skspritenode-in-a-downward-loop-using-swift/38235468
     public static func spiral(startRadius: CGFloat, endRadius: CGFloat, totalAngle: CGFloat, centerPoint: CGPoint, duration: TimeInterval) -> SKAction {

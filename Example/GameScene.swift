@@ -9,11 +9,12 @@ class GameScene: SKScene {
     }
 
     private func addButtons() {
-        addButton(buttonName: .shakeAction, position: CGPoint(x: 0, y: 0), scene: self)
-        addButton(buttonName: .animatedLabel, position: CGPoint(x: 0, y: 50), scene: self)
-        addButton(buttonName: .radialGradient, position: CGPoint(x: 0, y: 100), scene: self)
-        addButton(buttonName: .arrowNode, position: CGPoint(x: 0, y: 150), scene: self)
-        addButton(buttonName: .spiralAction, position: CGPoint(x: 0, y: 200), scene: self)
+        addButton(buttonName: .emitterLabel, position: CGPoint(x: 0, y: 250), scene: self)
+        addButton(buttonName: .animatedLabel, position: CGPoint(x: 0, y: 200), scene: self)
+        addButton(buttonName: .shakeAction, position: CGPoint(x: 0, y: 150), scene: self)
+        addButton(buttonName: .spiralAction, position: CGPoint(x: 0, y: 100), scene: self)
+        addButton(buttonName: .radialGradient, position: CGPoint(x: 0, y: 50), scene: self)
+        addButton(buttonName: .arrowNode, position: CGPoint(x: 0, y: 0), scene: self)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -32,6 +33,8 @@ class GameScene: SKScene {
                 view.presentScene(DemoSceneShakeAction(size: sceneSize), transition: defaultTransition)
             } else if nodeNameTouched == ButtonName.spiralAction.rawValue {
                 view.presentScene(DemoSceneSpiralAction(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.emitterLabel.rawValue {
+                view.presentScene(DemoSceneEmitterLabel(size: sceneSize), transition: defaultTransition)
             }
         }
     }
