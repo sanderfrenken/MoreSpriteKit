@@ -6,7 +6,6 @@ public class MSKEmitterLabel: SKNode {
     private let font: UIFont
     private let emitterName: String
     private let marginHorizontal: CGFloat
-    private let marginVertical: CGFloat
     private let animationDuration: Double
     private let addEmitterInterval: Double
 
@@ -17,12 +16,11 @@ public class MSKEmitterLabel: SKNode {
         get { return _width }
     }
 
-    public init(text: String, font: UIFont, emitterName: String, marginHorizontal: CGFloat = 10.0, marginVertical: CGFloat = 10.0, animationDuration: Double = 2.0, addEmitterInterval: Double = 0.1) {
+    public init(text: String, font: UIFont, emitterName: String, marginHorizontal: CGFloat = 10.0, animationDuration: Double = 2.0, addEmitterInterval: Double = 0.1) {
         self.text = text
         self.font = font
         self.emitterName = emitterName
         self.marginHorizontal = marginHorizontal
-        self.marginVertical = marginVertical
         self.animationDuration = animationDuration
         self.addEmitterInterval = addEmitterInterval
 
