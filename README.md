@@ -27,6 +27,23 @@ When `durationPerCharacter <= 0.0`, all lines will be drawn immediately without 
 
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
 
+### MSKEmitterLabel
+
+SKNode that draws specified text using an emitter that follows the characters outlines, over a given duration.
+
+Use public initializer:
+```
+public init(text: String, 
+            font: UIFont, 
+            emitterName: String, 
+            marginHorizontal: CGFloat = 10.0, 
+            animationDuration: Double = 2.0, 
+            addEmitterInterval: Double = 0.1)
+```
+
+
+![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/emitter-label.gif)
+
 ### SKAction+Spiral
 
 Extension on SKAction allowing to create a spiraling movement.
