@@ -13,7 +13,7 @@ public class MSKEmitterLabel: SKNode {
 
     private var _width: CGFloat = 0
     public var width: CGFloat {
-        get { return _width }
+       return _width
     }
 
     public init(text: String, font: UIFont, emitterName: String, marginHorizontal: CGFloat = 10.0, animationDuration: Double = 2.0, addEmitterInterval: Double = 0.1) {
@@ -35,7 +35,7 @@ public class MSKEmitterLabel: SKNode {
     private func setup() {
         _childEmitters.removeAll()
         let addChildEmittersCount = Int(animationDuration/addEmitterInterval) > 0 ? Int(animationDuration/addEmitterInterval) : 0
-        for (_, character) in text.enumerated() {
+        for character in text {
             guard let path = UIBezierPath.init(character: character, font: font) else { continue }
             let characterNode = SKNode()
             characterNode.position.x = _width
