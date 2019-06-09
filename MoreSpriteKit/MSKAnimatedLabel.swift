@@ -11,13 +11,14 @@ public class MSKAnimatedLabel: SKNode {
     private let fontName: String
     private let marginVertical: CGFloat
     private let skipSpaces: Bool
+    private let labelWidth: CGFloat
 
     private var labels = [SKLabelNode]()
     private var lines: [String]?
     private var currentLineNumber = 0
     private var currentPositionOnLine = 0
 
-    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster", skipSpaces: Bool = true) {
+    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster", skipSpaces: Bool = true, labelWidth: CGFloat = 0.0) {
         self.lines = text.components(separatedBy: CharacterSet.newlines)
         self.horizontalAlignment = horizontalAlignment
         self.durationPerCharacter = durationPerCharacter
@@ -26,6 +27,7 @@ public class MSKAnimatedLabel: SKNode {
         self.fontName = fontName
         self.fontColor = fontColor
         self.skipSpaces = skipSpaces
+        self.labelWidth = labelWidth
         super.init()
         setup()
     }
@@ -50,6 +52,10 @@ public class MSKAnimatedLabel: SKNode {
     private func createLabels() {
         resetLabels()
 
+        if labelWidth > 0 {
+            wrapLinesToLabelWidth()
+        }
+
         lines?.forEach { line in
             let label = SKLabelNode(fontNamed: fontName)
             label.horizontalAlignmentMode = horizontalAlignment
@@ -69,6 +75,51 @@ public class MSKAnimatedLabel: SKNode {
             addChild(label)
             idx += 1
         }
+    }
+
+    private func wrapLinesToLabelWidth() {
+        var linesWrapped = [String]()
+        lines?.forEach { line in
+            linesWrapped.append(contentsOf: wrapLine(line: line))
+        }
+        self.lines = linesWrapped
+    }
+
+    private func wrapLine(line: String) -> [String] {
+        let words = line.components(separatedBy: " ")
+        let label = SKLabelNode(fontNamed: fontName)
+        label.horizontalAlignmentMode = horizontalAlignment
+        label.fontSize = fontSize
+
+        var lineWrapped = [String]()
+        var currentLineContent = ""
+        var nextLineContent = ""
+        var idx = 0
+        var didReachEnd = false
+
+        while !didReachEnd {
+            if currentLineContent != "" {
+                nextLineContent += " "
+            }
+            nextLineContent += words[idx]
+            label.text = nextLineContent
+            if label.frame.width > labelWidth {
+                if currentLineContent == "" {
+                    fatalError("ERROR: LabelWidth to small")
+                }
+                lineWrapped.append(currentLineContent)
+                currentLineContent = ""
+                nextLineContent = ""
+            } else {
+                currentLineContent = nextLineContent
+                idx+=1
+                if idx >= words.count {
+                    lineWrapped.append(currentLineContent)
+                    didReachEnd = true
+                }
+            }
+        }
+        return lineWrapped
     }
 
     private func resetLabels() {

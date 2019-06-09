@@ -9,27 +9,20 @@ class DemoSceneAnimatedLabel: DemoScene {
     }
 
     private func addAnimatedLabel() {
-        let label = MSKAnimatedLabel(text: animatedLabelText)
+        let newText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        let label = MSKAnimatedLabel(text: newText, horizontalAlignment: .left, durationPerCharacter: 0.025, labelWidth: 200)
+        label.position.x -= 100
         addChild(label)
         label.run(
             .repeatForever(
                 .sequence([
-                    .wait(forDuration: 10.0),
+                    .wait(forDuration: 12.0),
                     .run {
-                        label.update(text: self.animatedLabelText)
+                        label.update(text: newText)
                     }
                     ])
             )
         )
-    }
-
-    private var animatedLabelText: String {
-        let sentence = "hello kind world..\n"
-        var text = sentence
-        for _ in 0..<10 {
-            text.append(sentence)
-        }
-        return text
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
