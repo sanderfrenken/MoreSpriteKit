@@ -20,9 +20,13 @@ public init(text: String,
             marginVertical: CGFloat = 15.0, 
             fontColor: SKColor = .white, 
             fontName: String = "Chalkduster", 
-            skipSpaces: Bool = true)
+            skipSpaces: Bool = true
+            labelWidth: CGFloat = 0.0)
 ```
 Where the text can be separated by new line characters to indicate start of new line. 
+Specify a specific `labelWidth` to wrap all text to a specific width. MSKAnimatedLabel will create new lines where necessary.
+When the specified `labelWidth` is to small for a certain CharacterSequence, a fatal error is thrown.
+
 When `durationPerCharacter <= 0.0`, all lines will be drawn immediately without any animation.
 
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
@@ -136,6 +140,16 @@ This project contains an application target being a demo project that demonstrat
 - If you think that something is missing or would like to propose new feature, please create an issue.
 - Please feel free to ⭐️ the project. This gives confidence that you like it which stimulates further development and support 🤩
 - Do you use MoreSpriteKit in any of your applications? Please let me know, I would love to see your creations!
+
+### Games using MoreSpriteKit
+The following games are using MoreSpriteKit already:
+
+[Herodom](https://sites.google.com/view/herodom/home)
+[Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
+[Connexx](https://apps.apple.com/nl/app/connexx/id1198001137)
+[SlippySlide](https://apps.apple.com/nl/app/slippy-slide/id911034356)
+
+- Do you use MoreSpriteKit in any of your applications? Please extend this list by making a PR!
 
 ### License
 
