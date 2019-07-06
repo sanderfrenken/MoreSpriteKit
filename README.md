@@ -143,10 +143,10 @@ This project contains an application target being a demo project that demonstrat
 ### Games using MoreSpriteKit
 The following games are using MoreSpriteKit already:
 
-[Herodom](https://sites.google.com/view/herodom/home)
-[Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
-[Connexx](https://apps.apple.com/nl/app/connexx/id1198001137)
-[SlippySlide](https://apps.apple.com/nl/app/slippy-slide/id911034356)
+- [Herodom](https://sites.google.com/view/herodom/home)
+- [Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
+- [Connexx](https://apps.apple.com/nl/app/connexx/id1198001137)
+- [SlippySlide](https://apps.apple.com/nl/app/slippy-slide/id911034356)
 
 - Do you use MoreSpriteKit in any of your applications? Please extend this list by making a PR!
 
