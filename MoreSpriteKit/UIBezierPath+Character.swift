@@ -1,9 +1,9 @@
 import UIKit
 import CoreText
 
-extension UIBezierPath {
+public extension UIBezierPath {
 
-    public convenience init? (character: String.Element, font: UIFont) {
+    convenience init? (character: String.Element, font: UIFont) {
         var unichars = [UniChar](String(character).utf16)
         var glyphs = [CGGlyph](repeating: 0, count: unichars.count)
         let gotGlyphs = CTFontGetGlyphsForCharacters(font, &unichars, &glyphs, unichars.count)

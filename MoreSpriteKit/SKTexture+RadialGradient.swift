@@ -1,8 +1,8 @@
 import SpriteKit
 
-extension SKTexture {
+public extension SKTexture {
 
-    public convenience init(radialGradientWithColors colors: [UIColor], locations: [CGFloat], size: CGSize) {
+    convenience init(radialGradientWithColors colors: [UIColor], locations: [CGFloat], size: CGSize) {
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { (context) in
             let colorSpace = CGColorSpaceCreateDeviceRGB()

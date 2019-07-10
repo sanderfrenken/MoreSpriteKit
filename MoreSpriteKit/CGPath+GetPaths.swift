@@ -1,8 +1,8 @@
 import CoreGraphics
 
-extension CGPath {
+public extension CGPath {
 
-    public func getPaths() -> [CGPath] {
+    func getPaths() -> [CGPath] {
         var paths = [CGMutablePath]()
         paths.append(CGMutablePath())
         var currentPathIndex = 0

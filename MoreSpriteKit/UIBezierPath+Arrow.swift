@@ -1,8 +1,8 @@
 import UIKit
 
-extension UIBezierPath {
+public extension UIBezierPath {
 
-    public convenience init (arrowFromStart start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) {
+    convenience init (arrowFromStart start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) {
         let length = hypot(end.x - start.x, end.y - start.y)
         let tailLength = length - headLength
 

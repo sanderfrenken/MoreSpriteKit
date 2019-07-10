@@ -5,10 +5,8 @@ class DemoSceneEmitterLabel: DemoScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        run(.repeatForever(.sequence([
-            .run { self.addEmitterLabel() },
-            .wait(forDuration: 10)
-        ])))
+        let actions: [SKAction] = [.run { self.addEmitterLabel() }, .wait(forDuration: 10)]
+        run(actions.sequence().forever())
     }
 
     private func addEmitterLabel() {
@@ -16,12 +14,12 @@ class DemoSceneEmitterLabel: DemoScene {
         emitterLabel.position.x -= emitterLabel.width/2.0
         addChild(emitterLabel)
 
-        run(.sequence([
+        run([
             .wait(forDuration: 5),
             .run { emitterLabel.fadeOutChildEmitters() },
             .wait(forDuration: 5),
             .removeFromParent()
-        ]))
+        ].sequence())
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

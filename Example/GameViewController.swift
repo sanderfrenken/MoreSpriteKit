@@ -1,5 +1,6 @@
 import UIKit
 import SpriteKit
+import MoreSpriteKit
 
 class GameViewController: UIViewController {
 

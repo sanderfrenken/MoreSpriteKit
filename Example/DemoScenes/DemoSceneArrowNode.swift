@@ -17,9 +17,7 @@ class DemoSceneArrowNode: DemoScene {
     }
 
     private var randomColor: UIColor {
-        let randomColors: [UIColor] = [.blue, .red, .green, .yellow, .orange, .purple]
-
-        return randomColors.randomElement()!
+        return [.blue, .red, .green, .yellow, .orange, .purple].randomElement()!
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
