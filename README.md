@@ -155,7 +155,7 @@ This project contains an application target being a demo project that demonstrat
 - Please feel free to ⭐️ the project. This gives confidence that you like it which stimulates further development and support 🤩
 
 ### Games using MoreSpriteKit
-The following games are using MoreSpriteKit already:
+The following games are using MoreSpriteKit:
 
 - [Herodom](https://sites.google.com/view/herodom/home)
 - [Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
