@@ -4,7 +4,10 @@
 
 # MoreSpriteKit
 
-This repository offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/).  All sources are written in Swift. 
+This repository offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/). 
+In addition it provides extensions to make complicated tasks a bit easier, and improve the readability of your code. 
+
+All sources are written in Swift. 
 
 ### MSKAnimatedLabel
 
