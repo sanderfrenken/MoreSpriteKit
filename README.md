@@ -105,6 +105,20 @@ let radialNode = SKSpriteNode(texture: radialTexture)
 ```
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/sktexture-gradient.png)
 
+
+### SKAction+TimingMode and Array+SKAction
+- Public extensions on `SKAction` to add a `timingMode` or for example a `repeatForever` inline.
+- Public extensions on `Array` to convert it inline to a `SKAction.group` or `SKAction.sequence`.
+
+Usage:
+```
+let actions: [SKAction] = [.run { self.addEmitterLabel() }, .wait(forDuration: 10)]
+run(actions.sequence().forever())
+```
+
+### CGFloat+Arithmetics
+Public functions to easily add/ subtract/ multiply/ divide `Int` with `CGFloat` and vice versa. Return type is of `CGFloat`.
+
 ### Requirements
 
 - iOS 10.3+
