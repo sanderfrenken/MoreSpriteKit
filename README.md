@@ -24,13 +24,15 @@ public init(text: String,
             fontColor: SKColor = .white, 
             fontName: String = "Chalkduster", 
             skipSpaces: Bool = true
-            labelWidth: CGFloat = 0.0)
+            labelWidth: CGFloat = 0.0
+            finishTypingOnTouch: Bool = false)
 ```
 Where the text can be separated by new line characters to indicate start of new line. 
 Specify a specific `labelWidth` to wrap all text to a specific width. MSKAnimatedLabel will create new lines where necessary.
 When the specified `labelWidth` is to small for a certain CharacterSequence, a fatal error is thrown.
 
 When `durationPerCharacter <= 0.0`, all lines will be drawn immediately without any animation.
+When `finishTypingOnTouch equals true`, all remaining lines will be drawn instantly without any animation when a user taps the label.
 
 ![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
 
