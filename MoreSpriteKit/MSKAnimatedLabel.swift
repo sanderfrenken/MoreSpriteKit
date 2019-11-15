@@ -12,13 +12,14 @@ public class MSKAnimatedLabel: SKNode {
     private let marginVertical: CGFloat
     private let skipSpaces: Bool
     private let labelWidth: CGFloat
+    private let finishTypingOnTouch: Bool
 
     private var labels = [SKLabelNode]()
     private var lines: [String]?
     private var currentLineNumber = 0
     private var currentPositionOnLine = 0
 
-    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster", skipSpaces: Bool = true, labelWidth: CGFloat = 0.0) {
+    public init(text: String, horizontalAlignment: SKLabelHorizontalAlignmentMode = .center, durationPerCharacter: Double = 0.05, fontSize: CGFloat = 12, marginVertical: CGFloat = 15.0, fontColor: SKColor = .white, fontName: String = "Chalkduster", skipSpaces: Bool = true, labelWidth: CGFloat = 0.0, finishTypingOnTouch: Bool = false) {
         self.lines = text.components(separatedBy: CharacterSet.newlines)
         self.horizontalAlignment = horizontalAlignment
         self.durationPerCharacter = durationPerCharacter
@@ -28,8 +29,15 @@ public class MSKAnimatedLabel: SKNode {
         self.fontColor = fontColor
         self.skipSpaces = skipSpaces
         self.labelWidth = labelWidth
+        self.finishTypingOnTouch = finishTypingOnTouch
         super.init()
         setup()
+    }
+
+    func defineUserInteraction() {
+        if finishTypingOnTouch {
+            isUserInteractionEnabled = true
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,13 +51,14 @@ public class MSKAnimatedLabel: SKNode {
     }
 
     private func setup() {
+        defineUserInteraction()
         createLabels()
         if shouldAnimate {
             startTyping()
         }
     }
 
-    private func createLabels() {
+    private func createLabels(forceNoAnimation: Bool = false) {
         resetLabels()
 
         if labelWidth > 0 {
@@ -61,7 +70,7 @@ public class MSKAnimatedLabel: SKNode {
             label.horizontalAlignmentMode = horizontalAlignment
             label.fontSize = fontSize
             label.fontColor = fontColor
-            if shouldAnimate {
+            if shouldAnimate && !forceNoAnimation {
                 label.text = ""
             } else {
                 label.text = line
@@ -191,5 +200,12 @@ public class MSKAnimatedLabel: SKNode {
 
     private func removeTimer() {
         removeAction(forKey: timerActionKey)
+    }
+
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if finishTypingOnTouch {
+            removeTimer()
+            createLabels(forceNoAnimation: true)
+        }
     }
 }
