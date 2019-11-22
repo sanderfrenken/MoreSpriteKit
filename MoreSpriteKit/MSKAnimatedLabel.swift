@@ -84,6 +84,14 @@ public class MSKAnimatedLabel: SKNode {
             addChild(label)
             idx += 1
         }
+        addTouchNodeForAutocomplete()
+    }
+
+    private func addTouchNodeForAutocomplete() {
+        let touchNode = SKSpriteNode(color: .clear,
+                                     size: .init(width: labelWidth, height: labels.count * marginVertical))
+        touchNode.position.y -= touchNode.frame.height/2
+        addChild(touchNode)
     }
 
     private func wrapLinesToLabelWidth() {
