@@ -10,12 +10,16 @@ class DemoScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard let view = self.view else { return }
         if let touch = touches.first {
             let nodeNameTouched = self.atPoint(touch.location(in: self)).name ?? ""
             if nodeNameTouched == ButtonName.back.rawValue {
-                view.presentScene(GameScene(size: view.frame.size), transition: defaultTransition)
+                onBackPressed()
             }
         }
+    }
+
+    func onBackPressed() {
+        guard let view = self.view else { return }
+        view.presentScene(GameScene(size: view.frame.size), transition: defaultTransition)
     }
 }

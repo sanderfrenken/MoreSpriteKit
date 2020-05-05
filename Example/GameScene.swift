@@ -15,6 +15,7 @@ class GameScene: SKScene {
         addButton(buttonName: .spiralAction, position: CGPoint(x: 0, y: 100), scene: self)
         addButton(buttonName: .radialGradient, position: CGPoint(x: 0, y: 50), scene: self)
         addButton(buttonName: .arrowNode, position: CGPoint(x: 0, y: 0), scene: self)
+        addButton(buttonName: .button, position: CGPoint(x: 0, y: -50), scene: self)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -35,6 +36,8 @@ class GameScene: SKScene {
                 view.presentScene(DemoSceneSpiralAction(size: sceneSize), transition: defaultTransition)
             } else if nodeNameTouched == ButtonName.emitterLabel.rawValue {
                 view.presentScene(DemoSceneEmitterLabel(size: sceneSize), transition: defaultTransition)
+            } else if nodeNameTouched == ButtonName.button.rawValue {
+                view.presentScene(DemoSceneButton(size: sceneSize), transition: defaultTransition)
             }
         }
     }

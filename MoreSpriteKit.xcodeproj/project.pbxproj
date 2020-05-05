@@ -11,6 +11,8 @@
 		5337D965229B160C005E6E5B /* DemoSceneEmitterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5337D964229B160C005E6E5B /* DemoSceneEmitterLabel.swift */; };
 		5337D967229B1BB4005E6E5B /* emitterLabel.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5337D966229B1BB4005E6E5B /* emitterLabel.sks */; };
 		5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */; };
+		53477340246165990042986A /* defaultButtonTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5347733E246165990042986A /* defaultButtonTexture.png */; };
+		53477341246165990042986A /* selectedButtonTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5347733F246165990042986A /* selectedButtonTexture.png */; };
 		53AA0BCC2281592B004ABC92 /* SKTexture+RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */; };
 		53AA0BCE22815988004ABC92 /* DemoSceneRadielGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */; };
 		53AA0BD022815A76004ABC92 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0BCF22815A76004ABC92 /* GameScene.swift */; };
@@ -31,6 +33,8 @@
 		53BDB3E722D67300009C4235 /* Array+SKAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BDB3E622D67300009C4235 /* Array+SKAction.swift */; };
 		53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C3C86D229F05290087B447 /* CGPath+ForEach.swift */; };
 		53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */; };
+		53C538E222D7A29E00871F7B /* MSKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C538E122D7A29E00871F7B /* MSKButton.swift */; };
+		53C538E622D8C23600871F7B /* DemoSceneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C538E522D8C23600871F7B /* DemoSceneButton.swift */; };
 		53CD28A2227F700C00EF590C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A1227F700C00EF590C /* AppDelegate.swift */; };
 		53CD28A8227F700C00EF590C /* DemoSceneAnimatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A7227F700C00EF590C /* DemoSceneAnimatedLabel.swift */; };
 		53CD28AA227F700C00EF590C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28A9227F700C00EF590C /* GameViewController.swift */; };
@@ -94,6 +98,8 @@
 		5337D964229B160C005E6E5B /* DemoSceneEmitterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneEmitterLabel.swift; sourceTree = "<group>"; };
 		5337D966229B1BB4005E6E5B /* emitterLabel.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = emitterLabel.sks; sourceTree = "<group>"; };
 		5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKEmitterLabel.swift; sourceTree = "<group>"; };
+		5347733E246165990042986A /* defaultButtonTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultButtonTexture.png; sourceTree = "<group>"; };
+		5347733F246165990042986A /* selectedButtonTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedButtonTexture.png; sourceTree = "<group>"; };
 		53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKTexture+RadialGradient.swift"; sourceTree = "<group>"; };
 		53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneRadielGradient.swift; sourceTree = "<group>"; };
 		53AA0BCF22815A76004ABC92 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 		53BDB3E622D67300009C4235 /* Array+SKAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SKAction.swift"; sourceTree = "<group>"; };
 		53C3C86D229F05290087B447 /* CGPath+ForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+ForEach.swift"; sourceTree = "<group>"; };
 		53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+GetPaths.swift"; sourceTree = "<group>"; };
+		53C538E122D7A29E00871F7B /* MSKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKButton.swift; sourceTree = "<group>"; };
+		53C538E522D8C23600871F7B /* DemoSceneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneButton.swift; sourceTree = "<group>"; };
 		53CD289F227F700C00EF590C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53CD28A1227F700C00EF590C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53CD28A7227F700C00EF590C /* DemoSceneAnimatedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneAnimatedLabel.swift; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 				53AA0BCD22815988004ABC92 /* DemoSceneRadielGradient.swift */,
 				53AA0BDA228163B5004ABC92 /* DemoSceneArrowNode.swift */,
 				53AA0BD222815BBF004ABC92 /* DemoScene.swift */,
+				53C538E522D8C23600871F7B /* DemoSceneButton.swift */,
 			);
 			path = DemoScenes;
 			sourceTree = "<group>";
@@ -208,6 +217,8 @@
 				53CD28AE227F700E00EF590C /* Assets.xcassets */,
 				53CD28B0227F700E00EF590C /* LaunchScreen.storyboard */,
 				53AA0BE222816A05004ABC92 /* spiralParticle.sks */,
+				5347733E246165990042986A /* defaultButtonTexture.png */,
+				5347733F246165990042986A /* selectedButtonTexture.png */,
 				53CD28B3227F700E00EF590C /* Info.plist */,
 				5337D966229B1BB4005E6E5B /* emitterLabel.sks */,
 			);
@@ -268,6 +279,7 @@
 				53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */,
 				5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */,
 				53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */,
+				53C538E122D7A29E00871F7B /* MSKButton.swift */,
 				53AA0BDC228166F5004ABC92 /* SKAction+Spiral.swift */,
 				53BDB3E422D672BC009C4235 /* SKAction+TimingMode.swift */,
 				53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */,
@@ -450,10 +462,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5337D967229B1BB4005E6E5B /* emitterLabel.sks in Resources */,
+				53477341246165990042986A /* selectedButtonTexture.png in Resources */,
 				53AA0BE322816A05004ABC92 /* spiralParticle.sks in Resources */,
 				53CD28AD227F700C00EF590C /* Main.storyboard in Resources */,
 				53CD28AF227F700E00EF590C /* Assets.xcassets in Resources */,
 				53CD28B2227F700E00EF590C /* LaunchScreen.storyboard in Resources */,
+				53477340246165990042986A /* defaultButtonTexture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +530,7 @@
 				53CD28A8227F700C00EF590C /* DemoSceneAnimatedLabel.swift in Sources */,
 				53CD28AA227F700C00EF590C /* GameViewController.swift in Sources */,
 				53AA0BD022815A76004ABC92 /* GameScene.swift in Sources */,
+				53C538E622D8C23600871F7B /* DemoSceneButton.swift in Sources */,
 				53AA0BD522815EE9004ABC92 /* Utils.swift in Sources */,
 				53AA0BCE22815988004ABC92 /* DemoSceneRadielGradient.swift in Sources */,
 				53AA0BDB228163B5004ABC92 /* DemoSceneArrowNode.swift in Sources */,
@@ -556,6 +571,7 @@
 				53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */,
 				53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */,
 				53AA0BED22819CB3004ABC92 /* SKShapeNode+Arrow.swift in Sources */,
+				53C538E222D7A29E00871F7B /* MSKButton.swift in Sources */,
 				5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */,
 				53AA0BCC2281592B004ABC92 /* SKTexture+RadialGradient.swift in Sources */,
 				53BDB3E322D4FC4B009C4235 /* CGFloat+Arithmetics.swift in Sources */,

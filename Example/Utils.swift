@@ -10,6 +10,7 @@ var randomPosition: CGPoint {
 
 enum ButtonName: String {
     case back
+    case button
     case radialGradient
     case animatedLabel
     case arrowNode
