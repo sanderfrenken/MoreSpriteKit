@@ -6,8 +6,7 @@ class DemoSceneButton: DemoScene {
     let button = MSKButton(
         size: CGSize(width: 100, height: 50),
         defaultTexture: SKTexture(imageNamed: "defaultButtonTexture"),
-        selectedTexture: SKTexture(imageNamed: "selectedButtonTexture"),
-        text: "Click me")
+        selectedTexture: SKTexture(imageNamed: "selectedButtonTexture"))
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
