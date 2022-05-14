@@ -17,6 +17,7 @@ enum ButtonName: String {
     case spiralAction
     case shakeAction
     case emitterLabel
+    case tiledMap
 }
 
 func addButton(buttonName: ButtonName, position: CGPoint, scene: SKScene) {

@@ -46,6 +46,12 @@
 		53CD28D6227F71B100EF590C /* MSKAnimatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */; };
 		53D1F2E4227F6EF700B219D5 /* MoreSpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D1F2DA227F6EF600B219D5 /* MoreSpriteKit.framework */; };
 		53D1F2E9227F6EF700B219D5 /* MoreSpriteKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D1F2E8227F6EF700B219D5 /* MoreSpriteKitTests.swift */; };
+		E04E6F8828305229004B6749 /* MSKTiledMapParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04E6F8728305229004B6749 /* MSKTiledMapParser.swift */; };
+		E04E6F8A2830542F004B6749 /* DemoSceneTiledMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04E6F892830542F004B6749 /* DemoSceneTiledMap.swift */; };
+		E04E6F912830555E004B6749 /* testmap3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F8D2830555E004B6749 /* testmap3.tmx */; };
+		E04E6F922830555E004B6749 /* terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F8E2830555E004B6749 /* terrain.png */; };
+		E04E6F932830555E004B6749 /* decorations-medieval.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F8F2830555E004B6749 /* decorations-medieval.png */; };
+		E04E6F942830555E004B6749 /* decorations-victorian.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F902830555E004B6749 /* decorations-victorian.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +146,12 @@
 		53D1F2E3227F6EF700B219D5 /* MoreSpriteKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoreSpriteKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D1F2E8227F6EF700B219D5 /* MoreSpriteKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSpriteKitTests.swift; sourceTree = "<group>"; };
 		53D1F2EA227F6EF700B219D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E04E6F8728305229004B6749 /* MSKTiledMapParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTiledMapParser.swift; sourceTree = "<group>"; };
+		E04E6F892830542F004B6749 /* DemoSceneTiledMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSceneTiledMap.swift; sourceTree = "<group>"; };
+		E04E6F8D2830555E004B6749 /* testmap3.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testmap3.tmx; sourceTree = "<group>"; };
+		E04E6F8E2830555E004B6749 /* terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = terrain.png; sourceTree = "<group>"; };
+		E04E6F8F2830555E004B6749 /* decorations-medieval.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorations-medieval.png"; sourceTree = "<group>"; };
+		E04E6F902830555E004B6749 /* decorations-victorian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorations-victorian.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +213,7 @@
 				53AA0BDA228163B5004ABC92 /* DemoSceneArrowNode.swift */,
 				53AA0BD222815BBF004ABC92 /* DemoScene.swift */,
 				53C538E522D8C23600871F7B /* DemoSceneButton.swift */,
+				E04E6F892830542F004B6749 /* DemoSceneTiledMap.swift */,
 			);
 			path = DemoScenes;
 			sourceTree = "<group>";
@@ -208,19 +221,13 @@
 		53CD28A0227F700C00EF590C /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				E04E6F9628305592004B6749 /* assets */,
 				53CD28A1227F700C00EF590C /* AppDelegate.swift */,
 				53CD28A9227F700C00EF590C /* GameViewController.swift */,
 				53AA0BCF22815A76004ABC92 /* GameScene.swift */,
 				53AA0BD422815EE9004ABC92 /* Utils.swift */,
 				53AA0BD122815B97004ABC92 /* DemoScenes */,
-				53CD28AB227F700C00EF590C /* Main.storyboard */,
-				53CD28AE227F700E00EF590C /* Assets.xcassets */,
-				53CD28B0227F700E00EF590C /* LaunchScreen.storyboard */,
-				53AA0BE222816A05004ABC92 /* spiralParticle.sks */,
-				5347733E246165990042986A /* defaultButtonTexture.png */,
-				5347733F246165990042986A /* selectedButtonTexture.png */,
 				53CD28B3227F700E00EF590C /* Info.plist */,
-				5337D966229B1BB4005E6E5B /* emitterLabel.sks */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -278,6 +285,7 @@
 				53BDB3E222D4FC4B009C4235 /* CGFloat+Arithmetics.swift */,
 				53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */,
 				5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */,
+				E04E6F8728305229004B6749 /* MSKTiledMapParser.swift */,
 				53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */,
 				53C538E122D7A29E00871F7B /* MSKButton.swift */,
 				53AA0BDC228166F5004ABC92 /* SKAction+Spiral.swift */,
@@ -297,6 +305,32 @@
 				53D1F2EA227F6EF700B219D5 /* Info.plist */,
 			);
 			path = MoreSpriteKitTests;
+			sourceTree = "<group>";
+		};
+		E04E6F952830556C004B6749 /* tiledMap */ = {
+			isa = PBXGroup;
+			children = (
+				E04E6F8F2830555E004B6749 /* decorations-medieval.png */,
+				E04E6F902830555E004B6749 /* decorations-victorian.png */,
+				E04E6F8E2830555E004B6749 /* terrain.png */,
+				E04E6F8D2830555E004B6749 /* testmap3.tmx */,
+			);
+			path = tiledMap;
+			sourceTree = "<group>";
+		};
+		E04E6F9628305592004B6749 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				53CD28AE227F700E00EF590C /* Assets.xcassets */,
+				5347733E246165990042986A /* defaultButtonTexture.png */,
+				5337D966229B1BB4005E6E5B /* emitterLabel.sks */,
+				53CD28B0227F700E00EF590C /* LaunchScreen.storyboard */,
+				53CD28AB227F700C00EF590C /* Main.storyboard */,
+				5347733F246165990042986A /* selectedButtonTexture.png */,
+				53AA0BE222816A05004ABC92 /* spiralParticle.sks */,
+				E04E6F952830556C004B6749 /* tiledMap */,
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,11 +497,15 @@
 			files = (
 				5337D967229B1BB4005E6E5B /* emitterLabel.sks in Resources */,
 				53477341246165990042986A /* selectedButtonTexture.png in Resources */,
+				E04E6F922830555E004B6749 /* terrain.png in Resources */,
 				53AA0BE322816A05004ABC92 /* spiralParticle.sks in Resources */,
 				53CD28AD227F700C00EF590C /* Main.storyboard in Resources */,
+				E04E6F912830555E004B6749 /* testmap3.tmx in Resources */,
+				E04E6F932830555E004B6749 /* decorations-medieval.png in Resources */,
 				53CD28AF227F700E00EF590C /* Assets.xcassets in Resources */,
 				53CD28B2227F700E00EF590C /* LaunchScreen.storyboard in Resources */,
 				53477340246165990042986A /* defaultButtonTexture.png in Resources */,
+				E04E6F942830555E004B6749 /* decorations-victorian.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +576,7 @@
 				53AA0BE522816E85004ABC92 /* DemoSceneShakeAction.swift in Sources */,
 				53CD28A2227F700C00EF590C /* AppDelegate.swift in Sources */,
 				53AA0BE1228169D2004ABC92 /* DemoSceneSpiralAction.swift in Sources */,
+				E04E6F8A2830542F004B6749 /* DemoSceneTiledMap.swift in Sources */,
 				53AA0BD322815BBF004ABC92 /* DemoScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,6 +610,7 @@
 				53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */,
 				53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */,
 				53AA0BED22819CB3004ABC92 /* SKShapeNode+Arrow.swift in Sources */,
+				E04E6F8828305229004B6749 /* MSKTiledMapParser.swift in Sources */,
 				53C538E222D7A29E00871F7B /* MSKButton.swift in Sources */,
 				5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */,
 				53AA0BCC2281592B004ABC92 /* SKTexture+RadialGradient.swift in Sources */,
