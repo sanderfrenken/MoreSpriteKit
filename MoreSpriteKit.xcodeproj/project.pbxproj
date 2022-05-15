@@ -52,6 +52,9 @@
 		E04E6F922830555E004B6749 /* terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F8E2830555E004B6749 /* terrain.png */; };
 		E04E6F932830555E004B6749 /* decorations-medieval.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F8F2830555E004B6749 /* decorations-medieval.png */; };
 		E04E6F942830555E004B6749 /* decorations-victorian.png in Resources */ = {isa = PBXBuildFile; fileRef = E04E6F902830555E004B6749 /* decorations-victorian.png */; };
+		E089D0C1283180B3001C8BF6 /* MSKTiledMapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C0283180B3001C8BF6 /* MSKTiledMapScene.swift */; };
+		E089D0C42831812E001C8BF6 /* MSKCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */; };
+		E089D0C628318414001C8BF6 /* MSKTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C528318414001C8BF6 /* MSKTile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +155,9 @@
 		E04E6F8E2830555E004B6749 /* terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = terrain.png; sourceTree = "<group>"; };
 		E04E6F8F2830555E004B6749 /* decorations-medieval.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorations-medieval.png"; sourceTree = "<group>"; };
 		E04E6F902830555E004B6749 /* decorations-victorian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decorations-victorian.png"; sourceTree = "<group>"; };
+		E089D0C0283180B3001C8BF6 /* MSKTiledMapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTiledMapScene.swift; sourceTree = "<group>"; };
+		E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKCameraNode.swift; sourceTree = "<group>"; };
+		E089D0C528318414001C8BF6 /* MSKTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,13 +291,14 @@
 				53BDB3E222D4FC4B009C4235 /* CGFloat+Arithmetics.swift */,
 				53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */,
 				5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */,
-				E04E6F8728305229004B6749 /* MSKTiledMapParser.swift */,
 				53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */,
 				53C538E122D7A29E00871F7B /* MSKButton.swift */,
+				E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */,
 				53AA0BDC228166F5004ABC92 /* SKAction+Spiral.swift */,
 				53BDB3E422D672BC009C4235 /* SKAction+TimingMode.swift */,
 				53AA0BCB2281592B004ABC92 /* SKTexture+RadialGradient.swift */,
 				53AA0BEC22819CB3004ABC92 /* SKShapeNode+Arrow.swift */,
+				E089D0C2283180BF001C8BF6 /* tiled */,
 				53AA0BD822816102004ABC92 /* UIBezierPath+Arrow.swift */,
 				5337D962229B1522005E6E5B /* UIBezierPath+Character.swift */,
 			);
@@ -307,7 +314,7 @@
 			path = MoreSpriteKitTests;
 			sourceTree = "<group>";
 		};
-		E04E6F952830556C004B6749 /* tiledMap */ = {
+		E04E6F952830556C004B6749 /* tiled */ = {
 			isa = PBXGroup;
 			children = (
 				E04E6F8F2830555E004B6749 /* decorations-medieval.png */,
@@ -315,7 +322,7 @@
 				E04E6F8E2830555E004B6749 /* terrain.png */,
 				E04E6F8D2830555E004B6749 /* testmap3.tmx */,
 			);
-			path = tiledMap;
+			path = tiled;
 			sourceTree = "<group>";
 		};
 		E04E6F9628305592004B6749 /* assets */ = {
@@ -328,9 +335,19 @@
 				53CD28AB227F700C00EF590C /* Main.storyboard */,
 				5347733F246165990042986A /* selectedButtonTexture.png */,
 				53AA0BE222816A05004ABC92 /* spiralParticle.sks */,
-				E04E6F952830556C004B6749 /* tiledMap */,
+				E04E6F952830556C004B6749 /* tiled */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		E089D0C2283180BF001C8BF6 /* tiled */ = {
+			isa = PBXGroup;
+			children = (
+				E04E6F8728305229004B6749 /* MSKTiledMapParser.swift */,
+				E089D0C528318414001C8BF6 /* MSKTile.swift */,
+				E089D0C0283180B3001C8BF6 /* MSKTiledMapScene.swift */,
+			);
+			path = tiled;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -604,12 +621,15 @@
 				53AA0BE722816F27004ABC92 /* SKAction+Shake.swift in Sources */,
 				5337D963229B1522005E6E5B /* UIBezierPath+Character.swift in Sources */,
 				53BDB3E722D67300009C4235 /* Array+SKAction.swift in Sources */,
+				E089D0C42831812E001C8BF6 /* MSKCameraNode.swift in Sources */,
 				53AA0BD922816102004ABC92 /* UIBezierPath+Arrow.swift in Sources */,
 				53AA0BDD228166F5004ABC92 /* SKAction+Spiral.swift in Sources */,
+				E089D0C1283180B3001C8BF6 /* MSKTiledMapScene.swift in Sources */,
 				53BDB3E522D672BC009C4235 /* SKAction+TimingMode.swift in Sources */,
 				53C3C870229F05420087B447 /* CGPath+GetPaths.swift in Sources */,
 				53C3C86E229F05290087B447 /* CGPath+ForEach.swift in Sources */,
 				53AA0BED22819CB3004ABC92 /* SKShapeNode+Arrow.swift in Sources */,
+				E089D0C628318414001C8BF6 /* MSKTile.swift in Sources */,
 				E04E6F8828305229004B6749 /* MSKTiledMapParser.swift in Sources */,
 				53C538E222D7A29E00871F7B /* MSKButton.swift in Sources */,
 				5337D969229C59A1005E6E5B /* MSKEmitterLabel.swift in Sources */,

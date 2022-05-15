@@ -40,7 +40,7 @@ class GameScene: SKScene {
             } else if nodeNameTouched == ButtonName.button.rawValue {
                 view.presentScene(DemoSceneButton(size: sceneSize), transition: defaultTransition)
             } else if nodeNameTouched == ButtonName.tiledMap.rawValue {
-                view.presentScene(DemoSceneTiledMap(size: sceneSize), transition: defaultTransition)
+                view.presentScene(DemoSceneTiledMap(size: view.frame.size), transition: defaultTransition)
             }
         }
     }

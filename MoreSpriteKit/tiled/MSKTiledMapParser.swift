@@ -220,10 +220,10 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                     if idx > 0 {
                         column = idx%Int(mapSize.width)
                     }
-                    let row = Int(floor(CGFloat(idx)/mapSize.width))
+                    let row = Int(floor(CGFloat(idx)/mapSize.height))
 
                     let tileGroup = getTileGroup(tileId: tileId)
-                    layer.setTileGroup(tileGroup, forColumn: column, row: Int(mapSize.height)-row)
+                    layer.setTileGroup(tileGroup, forColumn: column, row: Int(mapSize.height-1)-row)
                     idx+=1
                 }
                 layer.name = currentRawLayer.name
