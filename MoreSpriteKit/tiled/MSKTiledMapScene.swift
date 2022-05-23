@@ -144,7 +144,7 @@ open class MSKTiledMapScene: SKScene {
         return layer.tileDefinition(atColumn: tile.column, row: tile.row)?.userData
     }
 
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currentPoint: CGPoint = touch.location(in: mapNode)
             let previousPoint: CGPoint = touch.previousLocation(in: mapNode)

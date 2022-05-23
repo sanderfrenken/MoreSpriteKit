@@ -214,16 +214,17 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 var idx = 0
                 for tileId in layerData {
                     if !hasValidTileData(tileId: tileId) {
+                        idx+=1
                         continue
                     }
                     var column = 0
                     if idx > 0 {
                         column = idx%Int(mapSize.width)
                     }
-                    let row = Int(floor(CGFloat(idx)/mapSize.height))
+                    let row = Int(mapSize.height-1)-Int(floor(CGFloat(idx)/mapSize.width))
 
                     let tileGroup = getTileGroup(tileId: tileId)
-                    layer.setTileGroup(tileGroup, forColumn: column, row: Int(mapSize.height-1)-row)
+                    layer.setTileGroup(tileGroup, forColumn: column, row: row)
                     idx+=1
                 }
                 layer.name = currentRawLayer.name
