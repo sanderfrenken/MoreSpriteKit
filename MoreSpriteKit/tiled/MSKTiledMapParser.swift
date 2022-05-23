@@ -23,21 +23,21 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     private var currentRawLayer: RawLayer?
 
-    public func loadTilemap(filename: String) -> [SKTileMapNode] {
+    public func loadTilemap(filename: String) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
             log(logLevel: .error, message: "Failed to locate tilemap \(filename) in bundle")
-            return layers
+            return (layers, tileGroups)
         }
         guard let parser = XMLParser(contentsOf: path) else {
             log(logLevel: .error, message: "Failed to load xml tilemap \(filename)")
-            return layers
+            return (layers, tileGroups)
         }
 
         parser.delegate = self
         parser.parse()
 
         cleanUp()
-        return layers
+        return (layers, tileGroups)
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
@@ -324,18 +324,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     private func getStringValueFromAttributes(_ attributes: [String: String], attributeName: AttributeName) -> String? {
         return attributes[attributeName.rawValue]
     }
-
-    private func log(logLevel: LogLevel, message: String) {
-        #if DEBUG
-        print("[\(logLevel.rawValue)]: \(message)")
-        #endif
-    }
-}
-
-private enum LogLevel: String {
-    case debug
-    case warning
-    case error
 }
 
 private enum EncodingType: String {

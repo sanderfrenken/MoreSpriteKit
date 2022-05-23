@@ -55,6 +55,7 @@
 		E089D0C1283180B3001C8BF6 /* MSKTiledMapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C0283180B3001C8BF6 /* MSKTiledMapScene.swift */; };
 		E089D0C42831812E001C8BF6 /* MSKCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */; };
 		E089D0C628318414001C8BF6 /* MSKTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C528318414001C8BF6 /* MSKTile.swift */; };
+		E0CF79A8283522A10086F31E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CF79A7283522A10086F31E /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		E089D0C0283180B3001C8BF6 /* MSKTiledMapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTiledMapScene.swift; sourceTree = "<group>"; };
 		E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKCameraNode.swift; sourceTree = "<group>"; };
 		E089D0C528318414001C8BF6 /* MSKTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTile.swift; sourceTree = "<group>"; };
+		E0CF79A7283522A10086F31E /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +291,7 @@
 				53C3C86D229F05290087B447 /* CGPath+ForEach.swift */,
 				53C3C86F229F05420087B447 /* CGPath+GetPaths.swift */,
 				53BDB3E222D4FC4B009C4235 /* CGFloat+Arithmetics.swift */,
+				E0CF79A7283522A10086F31E /* Logger.swift */,
 				53CD28D5227F71B100EF590C /* MSKAnimatedLabel.swift */,
 				5337D968229C59A1005E6E5B /* MSKEmitterLabel.swift */,
 				53AA0BE622816F27004ABC92 /* SKAction+Shake.swift */,
@@ -618,6 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0CF79A8283522A10086F31E /* Logger.swift in Sources */,
 				53AA0BE722816F27004ABC92 /* SKAction+Shake.swift in Sources */,
 				5337D963229B1522005E6E5B /* UIBezierPath+Character.swift in Sources */,
 				53BDB3E722D67300009C4235 /* Array+SKAction.swift in Sources */,

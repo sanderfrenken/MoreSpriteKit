@@ -3,24 +3,28 @@ import GameplayKit
 
 open class MSKTiledMapScene: SKScene {
 
-    let mapNode = SKNode()
-    let layers: [SKTileMapNode]
-    let tiledMapName: String
-
-    let baseTileMapNode: SKTileMapNode
-
     public let cameraNode: MSKCameraNode
+
+    public let layers: [SKTileMapNode]
+    public let tileGroups: [SKTileGroup]
+    public let zPositionPerNamedLayer: [String: CGFloat]
+
+    private let mapNode = SKNode()
     private let zoomGestureRecogniser = UIPinchGestureRecognizer()
+    private let baseTileMapNode: SKTileMapNode
+    private var pathGraph: GKGridGraph<GKGridGraphNode>?
 
     public init(size: CGSize,
                 tiledMapName: String,
                 minZoom: CGFloat,
-                maxZoom: CGFloat) {
-        self.tiledMapName = tiledMapName
+                maxZoom: CGFloat,
+                zPositionPerNamedLayer: [String: CGFloat]) {
         self.cameraNode = MSKCameraNode(minZoom: minZoom, maxZoom: maxZoom)
+        self.zPositionPerNamedLayer = zPositionPerNamedLayer
 
-        let parser = MSKTiledMapParser.init()
-        layers = parser.loadTilemap(filename: tiledMapName)
+        let parsed = MSKTiledMapParser.init().loadTilemap(filename: tiledMapName)
+        layers = parsed.layers
+        tileGroups = parsed.tileGroups
 
         guard let firstLayer = layers.first else {
             fatalError("No layers parsed from map: \(tiledMapName)")
@@ -36,6 +40,14 @@ open class MSKTiledMapScene: SKScene {
 
         addChild(mapNode)
         for layer in layers {
+            var found = false
+            for zPositionLayer in zPositionPerNamedLayer where zPositionLayer.key == layer.name {
+                layer.zPosition = zPositionLayer.value
+                found = true
+            }
+            if !found {
+                log(logLevel: .warning, message: "No z-position provided for layer with name \(layer.name ?? "undefined")")
+            }
             mapNode.addChild(layer)
         }
         camera = cameraNode
@@ -47,22 +59,101 @@ open class MSKTiledMapScene: SKScene {
         setCameraConstraints()
     }
 
+    public func updatePathGraphUsing(layer: SKTileMapNode, obstacleProperty: String, diagonalsAllowed: Bool) {
+        let graph = GKGridGraph(fromGridStartingAt: vector_int2(0, 0),
+                                width: Int32(layer.numberOfColumns),
+                                height: Int32(layer.numberOfRows),
+                                diagonalsAllowed: diagonalsAllowed)
+        var obstacles = [GKGridGraphNode]()
+        for column in 0..<layer.numberOfColumns {
+            for row in 0..<layer.numberOfRows {
+                if let properties = getPropertiesForTileInLayer(layer: layer, tile: .init(column: column, row: row)),
+                   let isObstacle = properties[obstacleProperty] as? Bool,
+                   isObstacle {
+                    obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                }
+            }
+        }
+        graph.remove(obstacles)
+        pathGraph = graph
+    }
+
+    public func getPath(fromTile: MSKTile, toTile: MSKTile) -> [CGPoint]? {
+        if !isValidTile(tile: fromTile) {
+            log(logLevel: .warning, message: "Invalid tile provided as start for path")
+        } else if !isValidTile(tile: toTile) {
+            log(logLevel: .warning, message: "Invalid tile provided as end for path")
+        }
+        guard let pathGraph = pathGraph else {
+            log(logLevel: .warning, message: "Pathgraph has not been initialized yet")
+            return nil
+        }
+        guard let startNode = pathGraph.node(atGridPosition: vector_int2(Int32(fromTile.column), Int32(fromTile.row))) else {
+            log(logLevel: .warning, message: "Invalid start position for finding a path")
+            return nil
+        }
+        guard let endNode = pathGraph.node(atGridPosition: vector_int2(Int32(toTile.column), Int32(toTile.row))) else {
+            log(logLevel: .warning, message: "Invalid end position for finding a path")
+            return nil
+        }
+        let foundPath = pathGraph.findPath(from: startNode, to: endNode)
+        if foundPath.isEmpty {
+            log(logLevel: .warning, message: "Path could not be determined")
+            return nil
+        }
+        var points = [CGPoint]()
+        foundPath.forEach { pathNode in
+            if let graphNode = pathNode as? GKGridGraphNode {
+                let point = CGPoint(x: Int(graphNode.gridPosition.x), y: Int(graphNode.gridPosition.y))
+                points.append(point)
+            }
+        }
+        return points
+    }
+
+    public func isValidTile(tile: MSKTile) -> Bool {
+        return tile.row <= baseTileMapNode.numberOfRows-1 || tile.column <= baseTileMapNode.numberOfColumns-1
+    }
+
     public override func willMove(from view: SKView) {
         super.willMove(from: view)
         self.view?.removeGestureRecognizer(zoomGestureRecogniser)
     }
 
-    func getTileFromPositionInScene(position: CGPoint) -> MSKTile {
+    public func getTileFromPositionInScene(position: CGPoint) -> MSKTile? {
         let pos = convert(position, to: baseTileMapNode)
         let column = baseTileMapNode.tileColumnIndex(fromPosition: pos)
         let row = baseTileMapNode.tileRowIndex(fromPosition: pos)
-        return .init(column: column, row: row)
+        let tile = MSKTile(column: column, row: row)
+        return isValidTile(tile: tile) ? tile : nil
     }
 
-    func addNodeToTile(tile: MSKTile, node: SKNode) {
-        let nodePosition = baseTileMapNode.centerOfTile(atColumn: tile.column, row: tile.row)
-        node.position = nodePosition
-        mapNode.addChild(node)
+    public func getPositionInSceneFromTile(tile: MSKTile) -> CGPoint {
+        return baseTileMapNode.centerOfTile(atColumn: tile.column, row: tile.row)
+    }
+
+    public func replaceTileGroupForTile(layer: SKTileMapNode, tile: MSKTile, tileGroup: SKTileGroup) {
+        layer.setTileGroup(tileGroup, forColumn: tile.column, row: tile.row)
+    }
+
+    public func removeTileGroupForTile(layer: SKTileMapNode, tile: MSKTile, tileGroup: SKTileGroup) {
+        layer.setTileGroup(nil, forColumn: tile.column, row: tile.row)
+    }
+
+    public func getPropertiesForTileInLayer(layer: SKTileMapNode, tile: MSKTile) -> NSMutableDictionary? {
+        return layer.tileDefinition(atColumn: tile.column, row: tile.row)?.userData
+    }
+
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let currentPoint: CGPoint = touch.location(in: mapNode)
+            let previousPoint: CGPoint = touch.previousLocation(in: mapNode)
+            let deltaX = (currentPoint.x - previousPoint.x) * -1
+            let deltaY = (currentPoint.y - previousPoint.y) * -1
+            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 0.2)
+            moveAction.timingMode = .easeOut
+            cameraNode.run(moveAction)
+        }
     }
 
     @objc func handleZoomFrom(sender: UIPinchGestureRecognizer) {
@@ -96,18 +187,6 @@ open class MSKTiledMapScene: SKScene {
         levelEdgeConstraint.referenceNode = mapNode
 
         cameraNode.constraints = [levelEdgeConstraint]
-    }
-
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let currentPoint: CGPoint = touch.location(in: mapNode)
-            let previousPoint: CGPoint = touch.previousLocation(in: mapNode)
-            let deltaX = (currentPoint.x - previousPoint.x) * -1
-            let deltaY = (currentPoint.y - previousPoint.y) * -1
-            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 0.2)
-            moveAction.timingMode = .easeOut
-            cameraNode.run(moveAction)
-        }
     }
 
     required public init?(coder aDecoder: NSCoder) {
