@@ -164,7 +164,12 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 parser.abortParsing()
                 return
             }
-            currentRawLayer = .init(id: id, name: name)
+            var invisible = false
+            if let visible = getStringValueFromAttributes(attributeDict, attributeName: .visible),
+               visible == "0" {
+                invisible = true
+            }
+            currentRawLayer = .init(id: id, name: name, invisible: invisible)
         } else if elementName == ElementName.data.rawValue {
             if let encoding = getStringValueFromAttributes(attributeDict, attributeName: .encoding) {
                 if let encodingType = EncodingType.init(rawValue: encoding) {
@@ -228,6 +233,9 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                     idx+=1
                 }
                 layer.name = currentRawLayer.name
+                if currentRawLayer.invisible {
+                    layer.alpha = 0
+                }
                 layers.append(layer)
             }
         }
@@ -243,7 +251,8 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     }
 
     private func createTileGroupsFor(layerData: [Int]) {
-        for tileId in layerData {
+        let uniqueTiles = Array(Set(layerData))
+        for tileId in uniqueTiles {
             if !hasValidTileData(tileId: tileId) || hasTileGroupForTile(tileId: tileId) {
                 continue
             }
@@ -357,6 +366,7 @@ private enum AttributeName: String {
     case value
     case encoding
     case type
+    case visible
 }
 
 private struct RawTileSet {
@@ -381,4 +391,5 @@ private struct RawLayer {
     // swiftlint:disable:next identifier_name
     let id: Int
     let name: String
+    let invisible: Bool
 }
