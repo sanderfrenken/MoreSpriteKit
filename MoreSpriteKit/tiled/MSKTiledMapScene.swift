@@ -7,7 +7,7 @@ open class MSKTiledMapScene: SKScene {
 
     public let layers: [SKTileMapNode]
     public let tileGroups: [SKTileGroup]
-    public let zPositionPerNamedLayer: [String: CGFloat]
+    public let zPositionPerNamedLayer: [String: Int]
 
     private let mapNode = SKNode()
     private let zoomGestureRecogniser = UIPinchGestureRecognizer()
@@ -16,12 +16,9 @@ open class MSKTiledMapScene: SKScene {
 
     public init(size: CGSize,
                 tiledMapName: String,
-                minZoom: CGFloat,
-                maxZoom: CGFloat,
-                zPositionPerNamedLayer: [String: CGFloat]) {
-        self.cameraNode = MSKCameraNode(minZoom: minZoom, maxZoom: maxZoom)
-        self.zPositionPerNamedLayer = zPositionPerNamedLayer
-
+                minimumCameraScale: CGFloat,
+                maximumCameraScale: CGFloat?,
+                zPositionPerNamedLayer: [String: Int]) {
         let parsed = MSKTiledMapParser.init().loadTilemap(filename: tiledMapName)
         layers = parsed.layers
         tileGroups = parsed.tileGroups
@@ -30,19 +27,38 @@ open class MSKTiledMapScene: SKScene {
             fatalError("No layers parsed from map: \(tiledMapName)")
         }
         baseTileMapNode = firstLayer
+
+        let maximumScalePossible = min(firstLayer.frame.width/size.width,
+                                  firstLayer.frame.height/size.height)
+        let maximumScaleToInject: CGFloat
+        if let maximumCameraScale = maximumCameraScale {
+            if maximumCameraScale > maximumScalePossible {
+                fatalError("Maxzoom provided impossible, max possible zoom: \(maximumScalePossible).")
+            }
+            maximumScaleToInject = maximumCameraScale
+        } else {
+            maximumScaleToInject = maximumScalePossible
+        }
+        if maximumScaleToInject < minimumCameraScale {
+            fatalError("minimumCameraScale is greater than maximumCameraScale")
+        }
+
+        self.cameraNode = MSKCameraNode(minimumCameraScale: minimumCameraScale,
+                                        maximumCameraScale: maximumScaleToInject)
+        self.zPositionPerNamedLayer = zPositionPerNamedLayer
+
         super.init(size: size)
     }
 
     open override func didMove(to view: SKView) {
         super.didMove(to: view)
-
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
         addChild(mapNode)
         for layer in layers {
             var found = false
             for zPositionLayer in zPositionPerNamedLayer where zPositionLayer.key == layer.name {
-                layer.zPosition = zPositionLayer.value
+                layer.zPosition = CGFloat(zPositionLayer.value)
                 found = true
             }
             if !found {
@@ -126,6 +142,18 @@ open class MSKTiledMapScene: SKScene {
         let row = baseTileMapNode.tileRowIndex(fromPosition: pos)
         let tile = MSKTile(column: column, row: row)
         return isValidTile(tile: tile) ? tile : nil
+    }
+
+    public func getLayer(name: String) -> SKTileMapNode? {
+        if let layer = layers.first(where: { $0.name == name }) {
+            return layer
+        }
+        return nil
+    }
+
+    public func zoomTo(scale: CGFloat) {
+        cameraNode.setScale(scale)
+        setCameraConstraints()
     }
 
     public func getPositionInSceneFromTile(tile: MSKTile) -> CGPoint {

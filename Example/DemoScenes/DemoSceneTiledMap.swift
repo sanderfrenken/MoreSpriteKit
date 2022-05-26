@@ -9,10 +9,14 @@ class DemoSceneTiledMap: MSKTiledMapScene {
 
     init(size: CGSize) {
         let zPositionPerNamedLayer = [
-            "Tile Layer 2": CGFloat(29),
-            "Tile Layer 1": CGFloat(30)
+            "Tile Layer 2": 1,
+            "Tile Layer 1": 2
         ]
-        super.init(size: size, tiledMapName: "testmap3", minZoom: 0.2, maxZoom: 1, zPositionPerNamedLayer: zPositionPerNamedLayer)
+        super.init(size: size,
+                   tiledMapName: "testmap3",
+                   minimumCameraScale: 0.2,
+                   maximumCameraScale: nil,
+                   zPositionPerNamedLayer: zPositionPerNamedLayer)
         updatePathGraphUsing(layer: layers[1], obstacleProperty: "testProperty2", diagonalsAllowed: true)
         addChild(pathNode)
         pathNode.zPosition = 40

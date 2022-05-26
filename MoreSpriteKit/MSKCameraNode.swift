@@ -1,21 +1,21 @@
 import SpriteKit
 
 public class MSKCameraNode: SKCameraNode {
-    let maxZoom: CGFloat
-    let minZoom: CGFloat
+    let maximumCameraScale: CGFloat
+    let minimumCameraScale: CGFloat
 
-    init(minZoom: CGFloat, maxZoom: CGFloat) {
-        self.minZoom = minZoom
-        self.maxZoom = maxZoom
+    init(minimumCameraScale: CGFloat, maximumCameraScale: CGFloat) {
+        self.minimumCameraScale = minimumCameraScale
+        self.maximumCameraScale = maximumCameraScale
         super.init()
     }
 
     public override func setScale(_ scale: CGFloat) {
         var cappedScale = scale
-        if scale < minZoom {
-            cappedScale = minZoom
-        } else if scale > maxZoom {
-            cappedScale = maxZoom
+        if scale < minimumCameraScale {
+            cappedScale = minimumCameraScale
+        } else if scale > maximumCameraScale {
+            cappedScale = maximumCameraScale
         }
         super.setScale(cappedScale)
     }
