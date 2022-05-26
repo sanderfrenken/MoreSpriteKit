@@ -151,7 +151,7 @@ open class MSKTiledMapScene: SKScene {
         return nil
     }
 
-    public func zoomTo(scale: CGFloat) {
+    public func scaleTo(scale: CGFloat) {
         cameraNode.setScale(scale)
         setCameraConstraints()
     }

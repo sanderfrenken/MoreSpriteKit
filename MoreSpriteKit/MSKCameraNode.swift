@@ -1,13 +1,15 @@
 import SpriteKit
 
 public class MSKCameraNode: SKCameraNode {
-    let maximumCameraScale: CGFloat
-    let minimumCameraScale: CGFloat
+    public let maximumCameraScale: CGFloat
+    public let minimumCameraScale: CGFloat
 
     init(minimumCameraScale: CGFloat, maximumCameraScale: CGFloat) {
         self.minimumCameraScale = minimumCameraScale
         self.maximumCameraScale = maximumCameraScale
         super.init()
+        let initialScale = minimumCameraScale + ((maximumCameraScale - minimumCameraScale)/2)
+        setScale(initialScale)
     }
 
     public override func setScale(_ scale: CGFloat) {
