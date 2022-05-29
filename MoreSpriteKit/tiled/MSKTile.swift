@@ -1,6 +1,6 @@
 public struct MSKTile {
-    let column: Int
-    let row: Int
+    public let column: Int
+    public let row: Int
 
     public init(column: Int, row: Int) {
         self.column = column
