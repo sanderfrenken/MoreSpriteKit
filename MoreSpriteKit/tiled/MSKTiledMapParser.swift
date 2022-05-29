@@ -262,6 +262,25 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         }
     }
 
+    // swiftlint:disable:next large_tuple
+    private func flippedTileFlags(id: UInt32) -> (gid: UInt32, hflip: Bool, vflip: Bool, dflip: Bool) {
+        // masks for tile flipping
+        let flippedDiagonalFlag: UInt32   = 0x20000000
+        let flippedVerticalFlag: UInt32   = 0x40000000
+        let flippedHorizontalFlag: UInt32 = 0x80000000
+
+        let flippedAll = (flippedHorizontalFlag | flippedVerticalFlag | flippedDiagonalFlag)
+        let flippedMask = ~(flippedAll)
+
+        let flipHoriz:Bool = (id & flippedHorizontalFlag) != 0
+        let flipVert: Bool = (id & flippedVerticalFlag) != 0
+        let flipDiag: Bool = (id & flippedDiagonalFlag) != 0
+
+        // get the actual gid from the mask
+        let gid = id & flippedMask
+        return (gid, flipHoriz, flipVert, flipDiag)
+    }
+
     private func hasValidTileData(tileId: Int) -> Bool {
         return tileId > 0
     }
@@ -286,10 +305,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             return tileGroup
         }
 
-        // find correct one
-        guard let rawTileSet = getRawTileSetFor(tileId: tileId) else {
+        // find correct gid first
+        let tileInfo = flippedTileFlags(id: UInt32(tileId))
+        guard let rawTileSet = getRawTileSetFor(tileId: Int(tileInfo.gid)) else {
             return nil
         }
+        
+        // flip when needed
 
         let tileIdInSheet = tileId-rawTileSet.firstGid
         var column = 0
