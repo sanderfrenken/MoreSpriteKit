@@ -29,7 +29,7 @@ open class MSKTiledMapScene: SKScene {
         baseTileMapNode = firstLayer
 
         let maximumScalePossible = min(firstLayer.frame.width/size.width,
-                                  firstLayer.frame.height/size.height)
+                                  firstLayer.frame.height/size.height) * 0.999
         let maximumScaleToInject: CGFloat
         if let maximumCameraScale = maximumCameraScale {
             if maximumCameraScale > maximumScalePossible {
