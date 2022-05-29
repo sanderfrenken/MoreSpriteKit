@@ -256,7 +256,9 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             if !hasValidTileData(tileId: tileId) || hasTileGroupForTile(tileId: tileId) {
                 continue
             }
-            tileGroups.append(getTileGroup(tileId: tileId))
+            if let tileGroup = getTileGroup(tileId: tileId) {
+                tileGroups.append(tileGroup)
+            }
         }
     }
 
@@ -268,23 +270,26 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         return tileGroups.first { $0.name == ("\(tileId)") } != nil
     }
 
-    private func getRawTileSetFor(tileId: Int) -> RawTileSet {
+    private func getRawTileSetFor(tileId: Int) -> RawTileSet? {
         for rawTileSet in rawTileSets {
             if tileId >= rawTileSet.firstGid && tileId < rawTileSet.firstGid+rawTileSet.tileCount {
                 return rawTileSet
             }
         }
-        fatalError("getRawTileSetFor not found for tileId \(tileId)")
+        log(logLevel: .error, message: "getRawTileSetFor not found for tileId \(tileId)")
+        return nil
     }
 
-    private func getTileGroup(tileId: Int) -> SKTileGroup {
+    private func getTileGroup(tileId: Int) -> SKTileGroup? {
         let tileGroup = tileGroups.first { $0.name == ("\(tileId)") }
         if let tileGroup = tileGroup {
             return tileGroup
         }
 
         // find correct one
-        let rawTileSet = getRawTileSetFor(tileId: tileId)
+        guard let rawTileSet = getRawTileSetFor(tileId: tileId) else {
+            return nil
+        }
 
         let tileIdInSheet = tileId-rawTileSet.firstGid
         var column = 0
