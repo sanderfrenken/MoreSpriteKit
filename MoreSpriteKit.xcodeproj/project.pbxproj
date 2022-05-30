@@ -56,6 +56,7 @@
 		E089D0C42831812E001C8BF6 /* MSKCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */; };
 		E089D0C628318414001C8BF6 /* MSKTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D0C528318414001C8BF6 /* MSKTile.swift */; };
 		E0CF79A8283522A10086F31E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CF79A7283522A10086F31E /* Logger.swift */; };
+		E0E2E72B2844C76500A2826A /* testmap4.tmx in Resources */ = {isa = PBXBuildFile; fileRef = E0E2E72A2844C76500A2826A /* testmap4.tmx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		E089D0C32831812E001C8BF6 /* MSKCameraNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKCameraNode.swift; sourceTree = "<group>"; };
 		E089D0C528318414001C8BF6 /* MSKTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSKTile.swift; sourceTree = "<group>"; };
 		E0CF79A7283522A10086F31E /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		E0E2E72A2844C76500A2826A /* testmap4.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testmap4.tmx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				E04E6F902830555E004B6749 /* decorations-victorian.png */,
 				E04E6F8E2830555E004B6749 /* terrain.png */,
 				E04E6F8D2830555E004B6749 /* testmap3.tmx */,
+				E0E2E72A2844C76500A2826A /* testmap4.tmx */,
 			);
 			path = tiled;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				E04E6F922830555E004B6749 /* terrain.png in Resources */,
 				53AA0BE322816A05004ABC92 /* spiralParticle.sks in Resources */,
 				53CD28AD227F700C00EF590C /* Main.storyboard in Resources */,
+				E0E2E72B2844C76500A2826A /* testmap4.tmx in Resources */,
 				E04E6F912830555E004B6749 /* testmap3.tmx in Resources */,
 				E04E6F932830555E004B6749 /* decorations-medieval.png in Resources */,
 				53CD28AF227F700E00EF590C /* Assets.xcassets in Resources */,

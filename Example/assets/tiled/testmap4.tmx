@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="4" height="4" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="483" columns="21">
+  <image source="terrain.png" width="672" height="736"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="4" height="4">
+  <data encoding="csv">
+151,151,151,151,
+1073741975,1073741975,1073741975,1073741975,
+151,151,151,151,
+151,1610612887,3221225623,2684354711
+</data>
+ </layer>
+</map>

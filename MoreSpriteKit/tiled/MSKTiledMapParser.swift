@@ -263,8 +263,10 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     }
 
     // swiftlint:disable:next large_tuple
-    private func flippedTileFlags(id: UInt32) -> (gid: UInt32, hflip: Bool, vflip: Bool, dflip: Bool) {
-        // masks for tile flipping
+    private func parseTileIdWithFlags(id: UInt32) -> (gid: UInt32,
+                                                      flipHorizontal: Bool,
+                                                      flipVertical: Bool,
+                                                      flipDiagonal: Bool) {
         let flippedDiagonalFlag: UInt32   = 0x20000000
         let flippedVerticalFlag: UInt32   = 0x40000000
         let flippedHorizontalFlag: UInt32 = 0x80000000
@@ -272,13 +274,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         let flippedAll = (flippedHorizontalFlag | flippedVerticalFlag | flippedDiagonalFlag)
         let flippedMask = ~(flippedAll)
 
-        let flipHoriz:Bool = (id & flippedHorizontalFlag) != 0
-        let flipVert: Bool = (id & flippedVerticalFlag) != 0
-        let flipDiag: Bool = (id & flippedDiagonalFlag) != 0
+        let flipHorizontal = (id & flippedHorizontalFlag) != 0
+        let flipVertical = (id & flippedVerticalFlag) != 0
+        let flipDiagonal = (id & flippedDiagonalFlag) != 0
 
         // get the actual gid from the mask
         let gid = id & flippedMask
-        return (gid, flipHoriz, flipVert, flipDiag)
+        return (gid, flipHorizontal, flipVertical, flipDiagonal)
     }
 
     private func hasValidTileData(tileId: Int) -> Bool {
@@ -305,15 +307,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             return tileGroup
         }
 
-        // find correct gid first
-        let tileInfo = flippedTileFlags(id: UInt32(tileId))
+        // Determine correct gid first, corrected for bitflags
+        let tileInfo = parseTileIdWithFlags(id: UInt32(tileId))
         guard let rawTileSet = getRawTileSetFor(tileId: Int(tileInfo.gid)) else {
             return nil
         }
-        
-        // flip when needed
 
-        let tileIdInSheet = tileId-rawTileSet.firstGid
+        let tileIdInSheet = Int(tileInfo.gid)-rawTileSet.firstGid
         var column = 0
         if tileIdInSheet > 0 {
             column = tileIdInSheet%rawTileSet.columns
@@ -329,6 +329,22 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             properties.forEach { (key: String, value: Any) in
                 tileDefinition.userData?.setValue(value, forKey: key)
             }
+        }
+        if tileInfo.flipDiagonal {
+            if tileInfo.flipHorizontal && !tileInfo.flipVertical {
+                tileDefinition.rotation = .rotation270
+            } else if tileInfo.flipHorizontal && tileInfo.flipVertical {
+                tileDefinition.rotation = .rotation90
+                tileDefinition.flipHorizontally = true
+            } else if !tileInfo.flipHorizontal && tileInfo.flipVertical {
+                tileDefinition.rotation = .rotation90
+            } else if !tileInfo.flipHorizontal && !tileInfo.flipVertical {
+                tileDefinition.rotation = .rotation270
+                tileDefinition.flipHorizontally = true
+            }
+        } else {
+            tileDefinition.flipVertically = tileInfo.flipVertical
+            tileDefinition.flipHorizontally = tileInfo.flipHorizontal
         }
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
         newTileGroup.name = "\(tileId)"

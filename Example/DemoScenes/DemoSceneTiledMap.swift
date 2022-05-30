@@ -13,11 +13,11 @@ class DemoSceneTiledMap: MSKTiledMapScene {
             "Tile Layer 1": 2
         ]
         super.init(size: size,
-                   tiledMapName: "testmap3",
-                   minimumCameraScale: 0.2,
+                   tiledMapName: "testmap4",
+                   minimumCameraScale: 0.12,
                    maximumCameraScale: nil,
                    zPositionPerNamedLayer: zPositionPerNamedLayer)
-        updatePathGraphUsing(layer: layers[1], obstacleProperty: "testProperty2", diagonalsAllowed: true)
+        updatePathGraphUsing(layer: layers[0], obstacleProperty: "testProperty2", diagonalsAllowed: true)
         addChild(pathNode)
         pathNode.zPosition = 40
     }
