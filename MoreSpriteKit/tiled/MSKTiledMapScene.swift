@@ -94,6 +94,21 @@ open class MSKTiledMapScene: SKScene {
         pathGraph = graph
     }
 
+    public func updatePathGraphUsing(layer: SKTileMapNode, diagonalsAllowed: Bool) {
+        let graph = GKGridGraph(fromGridStartingAt: vector_int2(0, 0),
+                                width: Int32(layer.numberOfColumns),
+                                height: Int32(layer.numberOfRows),
+                                diagonalsAllowed: diagonalsAllowed)
+        var obstacles = [GKGridGraphNode]()
+        for column in 0..<layer.numberOfColumns {
+            for row in 0..<layer.numberOfRows {
+                obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+            }
+        }
+        graph.remove(obstacles)
+        pathGraph = graph
+    }
+
     public func getPath(fromTile: MSKTile, toTile: MSKTile) -> [CGPoint]? {
         if !isValidTile(tile: fromTile) {
             log(logLevel: .warning, message: "Invalid tile provided as start for path")

@@ -263,7 +263,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     }
 
     // swiftlint:disable:next large_tuple
-    private func parseTileIdWithFlags(id: UInt32) -> (gid: UInt32,
+    private func parseTileIdWithFlags(tileId: UInt32) -> (gid: UInt32,
                                                       flipHorizontal: Bool,
                                                       flipVertical: Bool,
                                                       flipDiagonal: Bool) {
@@ -274,12 +274,12 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         let flippedAll = (flippedHorizontalFlag | flippedVerticalFlag | flippedDiagonalFlag)
         let flippedMask = ~(flippedAll)
 
-        let flipHorizontal = (id & flippedHorizontalFlag) != 0
-        let flipVertical = (id & flippedVerticalFlag) != 0
-        let flipDiagonal = (id & flippedDiagonalFlag) != 0
+        let flipHorizontal = (tileId & flippedHorizontalFlag) != 0
+        let flipVertical = (tileId & flippedVerticalFlag) != 0
+        let flipDiagonal = (tileId & flippedDiagonalFlag) != 0
 
         // get the actual gid from the mask
-        let gid = id & flippedMask
+        let gid = tileId & flippedMask
         return (gid, flipHorizontal, flipVertical, flipDiagonal)
     }
 
@@ -308,7 +308,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         }
 
         // Determine correct gid first, corrected for bitflags
-        let tileInfo = parseTileIdWithFlags(id: UInt32(tileId))
+        let tileInfo = parseTileIdWithFlags(tileId: UInt32(tileId))
         guard let rawTileSet = getRawTileSetFor(tileId: Int(tileInfo.gid)) else {
             return nil
         }
@@ -435,4 +435,5 @@ private struct RawLayer {
     let id: Int
     let name: String
     let invisible: Bool
+// swiftlint:disable:next file_length
 }
