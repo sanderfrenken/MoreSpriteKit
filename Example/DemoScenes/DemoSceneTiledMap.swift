@@ -35,7 +35,7 @@ class DemoSceneTiledMap: MSKTiledMapScene {
         if let firstTile = firstTile {
             if let path = getPath(fromTile: firstTile, toTile: tile) {
                 for point in path {
-                    addIndicatorToPathNodeAt(tile: .init(column: Int(point.x), row: Int(point.y)))
+                    addIndicatorToPathNodeAt(tile: .init(column: Int(point.column), row: Int(point.row)))
                 }
             }
             self.firstTile = nil

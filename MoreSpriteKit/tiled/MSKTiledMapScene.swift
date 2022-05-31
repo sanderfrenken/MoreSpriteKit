@@ -102,14 +102,16 @@ open class MSKTiledMapScene: SKScene {
         var obstacles = [GKGridGraphNode]()
         for column in 0..<layer.numberOfColumns {
             for row in 0..<layer.numberOfRows {
-                obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                if layer.tileGroup(atColumn: column, row: row) != nil {
+                    obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                }
             }
         }
         graph.remove(obstacles)
         pathGraph = graph
     }
 
-    public func getPath(fromTile: MSKTile, toTile: MSKTile) -> [CGPoint]? {
+    public func getPath(fromTile: MSKTile, toTile: MSKTile) -> [MSKTile]? {
         if !isValidTile(tile: fromTile) {
             log(logLevel: .warning, message: "Invalid tile provided as start for path")
         } else if !isValidTile(tile: toTile) {
@@ -132,11 +134,11 @@ open class MSKTiledMapScene: SKScene {
             log(logLevel: .warning, message: "Path could not be determined")
             return nil
         }
-        var points = [CGPoint]()
+        var points = [MSKTile]()
         foundPath.forEach { pathNode in
             if let graphNode = pathNode as? GKGridGraphNode {
-                let point = CGPoint(x: Int(graphNode.gridPosition.x), y: Int(graphNode.gridPosition.y))
-                points.append(point)
+                points.append(.init(column: Int(graphNode.gridPosition.x),
+                                    row: Int(graphNode.gridPosition.y)))
             }
         }
         return points
@@ -173,6 +175,14 @@ open class MSKTiledMapScene: SKScene {
 
     public func getPositionInSceneFromTile(tile: MSKTile) -> CGPoint {
         return baseTileMapNode.centerOfTile(atColumn: tile.column, row: tile.row)
+    }
+
+    public func getPositionsInSceneFromTiles(tiles: [MSKTile]) -> [CGPoint] {
+        var points = [CGPoint]()
+        for tile in tiles {
+            points.append(getPositionInSceneFromTile(tile: tile))
+        }
+        return points
     }
 
     public func replaceTileGroupForTile(layer: SKTileMapNode, tile: MSKTile, tileGroup: SKTileGroup) {
