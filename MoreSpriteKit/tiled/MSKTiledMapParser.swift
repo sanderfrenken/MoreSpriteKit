@@ -346,6 +346,9 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             tileDefinition.flipVertically = tileInfo.flipVertical
             tileDefinition.flipHorizontally = tileInfo.flipHorizontal
         }
+        // In order to avoid tile cracking, increase the size of the tile with 1%
+        tileDefinition.size = .init(width: tileDefinition.size.width*1.01, height: tileDefinition.size.height*1.01)
+        
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
         newTileGroup.name = "\(tileId)"
         return newTileGroup
