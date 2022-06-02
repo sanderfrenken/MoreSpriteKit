@@ -48,6 +48,8 @@ open class MSKTiledMapScene: SKScene {
         self.zPositionPerNamedLayer = zPositionPerNamedLayer
 
         super.init(size: size)
+        camera = cameraNode
+        addChild(cameraNode)
     }
 
     open override func didMove(to view: SKView) {
@@ -66,8 +68,6 @@ open class MSKTiledMapScene: SKScene {
             }
             mapNode.addChild(layer)
         }
-        camera = cameraNode
-        addChild(cameraNode)
 
         zoomGestureRecogniser.addTarget(self, action: #selector(handleZoomFrom(sender:)))
         self.view?.addGestureRecognizer(zoomGestureRecogniser)
