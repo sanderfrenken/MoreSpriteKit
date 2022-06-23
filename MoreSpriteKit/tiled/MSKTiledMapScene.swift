@@ -9,7 +9,7 @@ open class MSKTiledMapScene: SKScene {
     public let tileGroups: [SKTileGroup]
     public let zPositionPerNamedLayer: [String: Int]
 
-    private let mapNode = SKNode()
+    public let mapNode = SKNode()
     private let zoomGestureRecogniser = UIPinchGestureRecognizer()
     private let baseTileMapNode: SKTileMapNode
     private var pathGraph: GKGridGraph<GKGridGraphNode>?
@@ -94,6 +94,27 @@ open class MSKTiledMapScene: SKScene {
         pathGraph = graph
     }
 
+    public func updatePathGraphUsing(layer: SKTileMapNode, obstacleProperty: String, diagonalsAllowed: Bool, removingTiles: [MSKTile]) {
+        let graph = GKGridGraph(fromGridStartingAt: vector_int2(0, 0),
+                                width: Int32(layer.numberOfColumns),
+                                height: Int32(layer.numberOfRows),
+                                diagonalsAllowed: diagonalsAllowed)
+        var obstacles = [GKGridGraphNode]()
+        for column in 0..<layer.numberOfColumns {
+            for row in 0..<layer.numberOfRows {
+                if removingTiles.contains(.init(column: column, row: row)) {
+                    obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                } else if let properties = getPropertiesForTileInLayer(layer: layer, tile: .init(column: column, row: row)),
+                          let isObstacle = properties[obstacleProperty] as? Bool,
+                          isObstacle {
+                    obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                }
+            }
+        }
+        graph.remove(obstacles)
+        pathGraph = graph
+    }
+
     public func updatePathGraphUsing(layer: SKTileMapNode, diagonalsAllowed: Bool) {
         let graph = GKGridGraph(fromGridStartingAt: vector_int2(0, 0),
                                 width: Int32(layer.numberOfColumns),
@@ -145,6 +166,9 @@ open class MSKTiledMapScene: SKScene {
     }
 
     public func isValidTile(tile: MSKTile) -> Bool {
+        if tile.row < 0 || tile.column < 0 {
+            return false
+        }
         return tile.row <= baseTileMapNode.numberOfRows-1 || tile.column <= baseTileMapNode.numberOfColumns-1
     }
 

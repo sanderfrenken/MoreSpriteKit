@@ -347,7 +347,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             tileDefinition.flipHorizontally = tileInfo.flipHorizontal
         }
         // In order to avoid tile cracking, increase the size of the tile with 1%
-        tileDefinition.size = .init(width: tileDefinition.size.width*1.01, height: tileDefinition.size.height*1.01)
+        tileDefinition.size = .init(width: tileDefinition.size.width*1.05, height: tileDefinition.size.height*1.05)
 
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
         newTileGroup.name = "\(tileId)"
@@ -440,3 +440,4 @@ private struct RawLayer {
     let invisible: Bool
 // swiftlint:disable:next file_length
 }
+
