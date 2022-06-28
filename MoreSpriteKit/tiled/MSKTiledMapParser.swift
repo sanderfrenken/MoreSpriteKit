@@ -156,7 +156,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 return
             }
             guard
-                // swiftlint:disable:next identifier_name
                 let id = getIntValueFromAttributes(attributeDict, attributeName: .id),
                 let name = getStringValueFromAttributes(attributeDict, attributeName: .name)
             else {
@@ -406,7 +405,6 @@ private enum AttributeName: String {
     case tilecount
     case columns
     case source
-    // swiftlint:disable:next identifier_name
     case id
     case name
     case value
@@ -423,7 +421,6 @@ private struct RawTileSet {
 }
 
 private struct RawTile {
-    // swiftlint:disable:next identifier_name
     let id: Int
     let properties: [String: Any]?
 }
@@ -434,10 +431,8 @@ private enum PropertyType: String {
 }
 
 private struct RawLayer {
-    // swiftlint:disable:next identifier_name
     let id: Int
     let name: String
     let invisible: Bool
 // swiftlint:disable:next file_length
 }
-

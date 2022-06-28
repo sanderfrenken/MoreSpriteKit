@@ -172,6 +172,13 @@ open class MSKTiledMapScene: SKScene {
         return tile.row <= baseTileMapNode.numberOfRows-1 || tile.column <= baseTileMapNode.numberOfColumns-1
     }
 
+    public func isValidPathTile(tile: MSKTile) -> Bool {
+        guard isValidTile(tile: tile) else {
+            return false
+        }
+        return pathGraph?.node(atGridPosition: .init(Int32(tile.column), Int32(tile.row))) != nil
+    }
+
     public override func willMove(from view: SKView) {
         super.willMove(from: view)
         self.view?.removeGestureRecognizer(zoomGestureRecogniser)
