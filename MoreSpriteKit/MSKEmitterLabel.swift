@@ -63,7 +63,7 @@ public class MSKEmitterLabel: SKNode {
 
     public func fadeOutChildEmitters() {
         _childEmitters.forEach { emitter in
-            let randomWait = 1/Double(arc4random_uniform(10)+1)
+            let randomWait = 1/Double.random(in: 1...10)
             emitter.run(.sequence([
                 .wait(forDuration: randomWait),
                 .run { emitter.particleBirthRate = 0 }

@@ -3,8 +3,8 @@ import SpriteKit
 let defaultTransition = SKTransition.fade(with: .black, duration: 1)
 
 var randomPosition: CGPoint {
-    let randomX = CGFloat(arc4random_uniform(200))-100.0
-    let randomY = CGFloat(arc4random_uniform(300))-150.0
+    let randomX = CGFloat.random(in: -100...100)
+    let randomY = CGFloat.random(in: -150...150)
     return CGPoint(x: randomX, y: randomY)
 }
 

@@ -4,6 +4,8 @@ import GameplayKit
 // swiftlint:disable:next type_body_length
 public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
+    private var allowTileImagesCache: Bool = true
+
     private var characters = ""
     private var encodingType: EncodingType = .csv
 
@@ -23,7 +25,9 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     private var currentRawLayer: RawLayer?
 
-    public func loadTilemap(filename: String) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
+    public func loadTilemap(filename: String,
+                            allowTileImagesCache: Bool = true) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
+        self.allowTileImagesCache = allowTileImagesCache
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
             log(logLevel: .error, message: "Failed to locate tilemap \(filename) in bundle")
             return (layers, tileGroups)
@@ -300,29 +304,52 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         return nil
     }
 
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     private func getTileGroup(tileId: Int) -> SKTileGroup? {
         let tileGroup = tileGroups.first { $0.name == ("\(tileId)") }
         if let tileGroup = tileGroup {
             return tileGroup
         }
-
-        // Determine correct gid first, corrected for bitflags
         let tileInfo = parseTileIdWithFlags(tileId: UInt32(tileId))
+        // Determine correct gid first, corrected for bitflags
         guard let rawTileSet = getRawTileSetFor(tileId: Int(tileInfo.gid)) else {
             return nil
         }
 
         let tileIdInSheet = Int(tileInfo.gid)-rawTileSet.firstGid
-        var column = 0
-        if tileIdInSheet > 0 {
-            column = tileIdInSheet%rawTileSet.columns
+        let tileSheet = rawTileSet.image
+
+        var texture: SKTexture?
+        if allowTileImagesCache {
+            if let imageData = try? Data(contentsOf: getCacheFileUrl(tileSheet: tileSheet, tileId: tileIdInSheet)) {
+                if let image = UIImage(data: imageData) {
+                    texture = SKTexture.init(image: image)
+                    log(logLevel: .debug, message: "Cache hit for image \(tileSheet)_\(tileIdInSheet)")
+                }
+            }
         }
-        let row = Int(floor(CGFloat(tileIdInSheet)/CGFloat(rawTileSet.columns)))
+        if texture == nil {
+            let sourceTexture = getTexture(name: tileSheet)
 
-        let sourceTexture = getTexture(name: rawTileSet.image)
-        let tileTexture = SKTexture(rect: CGRect(x: tileSize.width*CGFloat(column)/sourceTexture.size().width, y: 1-(tileSize.height*CGFloat(row+1)/sourceTexture.size().height), width: tileSize.width/sourceTexture.size().width, height: tileSize.height/sourceTexture.size().height), in: sourceTexture)
+            var column = 0
+            if tileIdInSheet > 0 {
+                column = tileIdInSheet%rawTileSet.columns
+            }
+            let row = Int(floor(CGFloat(tileIdInSheet)/CGFloat(rawTileSet.columns)))
 
-        let tileDefinition = SKTileDefinition(texture: tileTexture)
+            let tileTexture = SKTexture(rect: CGRect(x: tileSize.width*CGFloat(column)/sourceTexture.size().width, y: 1-(tileSize.height*CGFloat(row+1)/sourceTexture.size().height), width: tileSize.width/sourceTexture.size().width, height: tileSize.height/sourceTexture.size().height), in: sourceTexture)
+
+            // Workaround to avoid tile cracking (https://github.com/mfessenden/SKTiled/issues/40)
+            let uimg = UIImage(cgImage: tileTexture.cgImage())
+            if allowTileImagesCache {
+                if let data = uimg.pngData() {
+                    try? data.write(to: getCacheFileUrl(tileSheet: tileSheet, tileId: tileIdInSheet))
+                }
+            }
+            texture = SKTexture(image: uimg)
+        }
+
+        let tileDefinition = SKTileDefinition(texture: texture!)
         if let rawTile = rawTiles.first(where: { $0.id == tileId }), let properties = rawTile.properties {
             tileDefinition.userData = .init()
             properties.forEach { (key: String, value: Any) in
@@ -345,8 +372,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             tileDefinition.flipVertically = tileInfo.flipVertical
             tileDefinition.flipHorizontally = tileInfo.flipHorizontal
         }
-        // In order to avoid tile cracking, increase the size of the tile with 1%
-        tileDefinition.size = .init(width: tileDefinition.size.width*1.05, height: tileDefinition.size.height*1.05)
 
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
         newTileGroup.name = "\(tileId)"
@@ -378,6 +403,11 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     private func getStringValueFromAttributes(_ attributes: [String: String], attributeName: AttributeName) -> String? {
         return attributes[attributeName.rawValue]
+    }
+
+    func getCacheFileUrl(tileSheet: String, tileId: Int) -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0].appendingPathComponent("\(tileSheet)_\(tileId)")
     }
 }
 

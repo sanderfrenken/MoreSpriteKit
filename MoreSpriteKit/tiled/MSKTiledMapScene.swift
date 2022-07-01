@@ -18,8 +18,9 @@ open class MSKTiledMapScene: SKScene {
                 tiledMapName: String,
                 minimumCameraScale: CGFloat,
                 maximumCameraScale: CGFloat?,
-                zPositionPerNamedLayer: [String: Int]) {
-        let parsed = MSKTiledMapParser.init().loadTilemap(filename: tiledMapName)
+                zPositionPerNamedLayer: [String: Int],
+                allowTileImagesCache: Bool = true) {
+        let parsed = MSKTiledMapParser.init().loadTilemap(filename: tiledMapName, allowTileImagesCache: allowTileImagesCache)
         layers = parsed.layers
         tileGroups = parsed.tileGroups
 
