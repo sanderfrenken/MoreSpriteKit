@@ -40,11 +40,13 @@ open class MSKTiledMapScene: SKScene {
         } else {
             maximumScaleToInject = maximumScalePossible
         }
-        if maximumScaleToInject < minimumCameraScale {
-            fatalError("minimumCameraScale is greater than maximumCameraScale")
+        var minimumCameraScaleToInject = minimumCameraScale
+        if maximumScaleToInject < minimumCameraScaleToInject {
+            minimumCameraScaleToInject = maximumScaleToInject
+            log(logLevel: .warning, message: "minimumCameraScale is greater than maximumCameraScale")
         }
 
-        self.cameraNode = MSKCameraNode(minimumCameraScale: minimumCameraScale,
+        self.cameraNode = MSKCameraNode(minimumCameraScale: minimumCameraScaleToInject,
                                         maximumCameraScale: maximumScaleToInject)
         self.zPositionPerNamedLayer = zPositionPerNamedLayer
 
