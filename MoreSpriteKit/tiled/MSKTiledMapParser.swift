@@ -191,7 +191,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         }
     }
 
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
+    // swiftlint:disable:next cyclomatic_complexity
     public func parser(_ parser: XMLParser,
                        didEndElement elementName: String,
                        namespaceURI: String?,
