@@ -24,10 +24,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     private var rawTileSets = [RawTileSet]()
 
     private var currentRawLayer: RawLayer?
+    private var addingCustomTileGroups: [SKTileGroup]?
 
     public func loadTilemap(filename: String,
-                            allowTileImagesCache: Bool = true) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
+                            allowTileImagesCache: Bool = true,
+                            addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
         self.allowTileImagesCache = allowTileImagesCache
+        self.addingCustomTileGroups = addingCustomTileGroups
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
             log(logLevel: .error, message: "Failed to locate tilemap \(filename) in bundle")
             return (layers, tileGroups)
@@ -188,7 +191,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         }
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     public func parser(_ parser: XMLParser,
                        didEndElement elementName: String,
                        namespaceURI: String?,
@@ -215,6 +218,10 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 let layerData = characters.components(separatedBy: ",").compactMap { Int($0) }
 
                 createTileGroupsFor(layerData: layerData)
+
+                if let addingCustomTileGroups {
+                    tileGroups.append(contentsOf: addingCustomTileGroups)
+                }
 
                 let tileSet = SKTileSet(tileGroups: tileGroups, tileSetType: .grid)
                 let layer = SKTileMapNode(tileSet: tileSet, columns: Int(mapSize.width), rows: Int(mapSize.height), tileSize: tileSize)
