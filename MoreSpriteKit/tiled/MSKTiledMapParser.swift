@@ -26,25 +26,30 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     private var currentRawLayer: RawLayer?
     private var addingCustomTileGroups: [SKTileGroup]?
 
+    private var currentTiledObjectGroup: TiledObjectGroup?
+    private var tiledObjectGroups = [TiledObjectGroup]()
+
+    private var currentTiledObject: TiledObject?
+
     public func loadTilemap(filename: String,
                             allowTileImagesCache: Bool = true,
-                            addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup]) {
+                            addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup], tiledObjectGroups: [TiledObjectGroup]?) {
         self.allowTileImagesCache = allowTileImagesCache
         self.addingCustomTileGroups = addingCustomTileGroups
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
             log(logLevel: .error, message: "Failed to locate tilemap \(filename) in bundle")
-            return (layers, tileGroups)
+            return (layers, tileGroups, nil)
         }
         guard let parser = XMLParser(contentsOf: path) else {
             log(logLevel: .error, message: "Failed to load xml tilemap \(filename)")
-            return (layers, tileGroups)
+            return (layers, tileGroups, nil)
         }
 
         parser.delegate = self
         parser.parse()
 
         cleanUp()
-        return (layers, tileGroups)
+        return (layers, tileGroups, tiledObjectGroups)
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
@@ -56,25 +61,25 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         if elementName == ElementName.map.rawValue {
             guard let mapWidth = getDoubleValueFromAttributes(attributeDict, attributeName: .width),
                   let mapHeight = getDoubleValueFromAttributes(attributeDict, attributeName: .height) else {
-                      log(logLevel: .error, message: "Map found without a size definition: LINE[\(parser.lineNumber)]")
-                      parser.abortParsing()
-                      return
-                  }
+                log(logLevel: .error, message: "Map found without a size definition: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
             guard let tileWidth = getDoubleValueFromAttributes(attributeDict, attributeName: .tilewidth),
                   let tileHeight = getDoubleValueFromAttributes(attributeDict, attributeName: .tileheight) else {
-                      log(logLevel: .error, message: "Map found without a tilesize definition: LINE[\(parser.lineNumber)]")
-                      parser.abortParsing()
-                      return
-                  }
+                log(logLevel: .error, message: "Map found without a tilesize definition: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
             mapSize = .init(width: mapWidth, height: mapHeight)
             tileSize = .init(width: tileWidth, height: tileHeight)
         } else if elementName == ElementName.tileset.rawValue {
             guard let tileWidth = getDoubleValueFromAttributes(attributeDict, attributeName: .tilewidth),
                   let tileHeight = getDoubleValueFromAttributes(attributeDict, attributeName: .tileheight) else {
-                      log(logLevel: .error, message: "Tileset found without tilesize definitions: LINE[\(parser.lineNumber)]")
-                      parser.abortParsing()
-                      return
-                  }
+                log(logLevel: .error, message: "Tileset found without tilesize definitions: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
             if tileSize.width != tileWidth || tileSize.height != tileHeight {
                 log(logLevel: .error, message: "Tileset found with a different tilesize (\(tileWidth),\(tileHeight) than defined on the map (\(tileSize)): LINE[\(parser.lineNumber)]")
                 parser.abortParsing()
@@ -83,10 +88,10 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             guard let firstGid = getIntValueFromAttributes(attributeDict, attributeName: .firstgid),
                   let tileCount = getIntValueFromAttributes(attributeDict, attributeName: .tilecount),
                   let columns = getIntValueFromAttributes(attributeDict, attributeName: .columns) else {
-                      log(logLevel: .error, message: "Invalid tileset found. Check existence of firstgid, tilecount and columns: LINE[\(parser.lineNumber)]")
-                      parser.abortParsing()
-                      return
-                  }
+                log(logLevel: .error, message: "Invalid tileset found. Check existence of firstgid, tilecount and columns: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
             currentRawTileSet = RawTileSet(firstGid: firstGid, tileCount: tileCount, image: "", columns: columns)
         } else if elementName == ElementName.image.rawValue {
             guard let currentRawTileSet = currentRawTileSet else {
@@ -115,10 +120,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 return
             }
         } else if elementName == ElementName.property.rawValue {
-            guard let currentRawTile = currentRawTile else {
-                log(logLevel: .warning, message: "Properties are only supported on tiles")
-                return
-            }
             guard
                 let name = getStringValueFromAttributes(attributeDict, attributeName: .name),
                 let value = getStringValueFromAttributes(attributeDict, attributeName: .value)
@@ -143,20 +144,44 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 }
             }
             var newProperties = [String: Any]()
-            if var existingProperties = currentRawTile.properties {
+            var existingProperties: [String: Any]?
+            if currentRawTile != nil {
+                existingProperties = currentRawTile?.properties
+            } else if currentTiledObject != nil {
+                existingProperties = currentTiledObject?.properties
+            } else if currentTiledObjectGroup != nil {
+                existingProperties = currentTiledObjectGroup?.properties
+            } else {
+                log(logLevel: .warning, message: "Properties are only supported on tiles, objects and objectgroups")
+                return
+            }
+            if var existingProperties {
                 existingProperties[name] = propertyValue
                 newProperties = existingProperties
             } else {
                 newProperties[name] = propertyValue
             }
-            self.currentRawTile = RawTile(id: currentRawTile.id, properties: newProperties)
+            if let currentRawTile {
+                self.currentRawTile = RawTile(id: currentRawTile.id, properties: newProperties)
+            } else if let currentTiledObject {
+                self.currentTiledObject = TiledObject(id: currentTiledObject.id,
+                                                  name: currentTiledObject.name,
+                                                  x: currentTiledObject.x,
+                                                  y: currentTiledObject.y,
+                                                  properties: newProperties)
+            } else if let currentTiledObjectGroup {
+                self.currentTiledObjectGroup = TiledObjectGroup(id: currentTiledObjectGroup.id,
+                                                            name: currentTiledObjectGroup.name,
+                                                            properties: newProperties,
+                                                            objects: nil)
+            }
         } else if elementName == ElementName.layer.rawValue {
             guard let layerWidth = getDoubleValueFromAttributes(attributeDict, attributeName: .width),
                   let layerHeight = getDoubleValueFromAttributes(attributeDict, attributeName: .height) else {
-                      log(logLevel: .error, message: "Layer found without a size definition: LINE[\(parser.lineNumber)]")
-                      parser.abortParsing()
-                      return
-                  }
+                log(logLevel: .error, message: "Layer found without a size definition: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
             if mapSize.width != layerWidth || mapSize.height != layerHeight {
                 log(logLevel: .error, message: "Layer found with a different size (\(layerWidth),\(layerHeight) than defined on the map (\(mapSize)): LINE[\(parser.lineNumber)]")
                 parser.abortParsing()
@@ -188,10 +213,30 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 log(logLevel: .warning, message: "No encoding found, defaulting to csv")
                 self.encodingType = .csv
             }
+        } else if elementName == ElementName.objectgroup.rawValue {
+            guard let id = getStringValueFromAttributes(attributeDict, attributeName: .id),
+                  let name = getStringValueFromAttributes(attributeDict, attributeName: .name) else {
+                log(logLevel: .error, message: "Objectgroup id and/ or name not present: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
+            currentTiledObjectGroup = .init(id: id, name: name, properties: nil, objects: nil)
+        } else if elementName == ElementName.object.rawValue {
+            // swiftlint:disable identifier_name
+            guard let id = getStringValueFromAttributes(attributeDict, attributeName: .id),
+                  let name = getStringValueFromAttributes(attributeDict, attributeName: .name),
+                    let x = getIntValueFromAttributes(attributeDict, attributeName: .x),
+                    let y = getIntValueFromAttributes(attributeDict, attributeName: .y)   else {
+                log(logLevel: .error, message: "Object id and/ or name not present: LINE[\(parser.lineNumber)]")
+                parser.abortParsing()
+                return
+            }
+            // swiftlint:enable identifier_name
+            currentTiledObject = .init(id: id, name: name, x: x, y: y, properties: nil)
         }
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     public func parser(_ parser: XMLParser,
                        didEndElement elementName: String,
                        namespaceURI: String?,
@@ -201,11 +246,36 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         } else if elementName == ElementName.tileset.rawValue {
             currentRawTileSet = nil
         } else if elementName == ElementName.properties.rawValue {
-            if let currentRawTile = currentRawTile {
+            if let currentRawTile {
                 rawTiles.append(currentRawTile)
+            } else if let currentTiledObject {
+                guard let currentTiledObjectGroup else {
+                    return
+                }
+                var existingObjects = currentTiledObjectGroup.objects
+                if var existingObjects {
+                    existingObjects.append(currentTiledObject)
+                    self.currentTiledObjectGroup = .init(id: currentTiledObjectGroup.id,
+                                                       name: currentTiledObjectGroup.name,
+                                                       properties: currentTiledObjectGroup.properties,
+                                                       objects: existingObjects)
+                } else {
+                    existingObjects = [currentTiledObject]
+                    self.currentTiledObjectGroup = .init(id: currentTiledObjectGroup.id,
+                                                       name: currentTiledObjectGroup.name,
+                                                       properties: currentTiledObjectGroup.properties,
+                                                       objects: existingObjects)
+                }
             }
         } else if elementName == ElementName.layer.rawValue {
             currentRawLayer = nil
+        } else if elementName == ElementName.object.rawValue {
+            currentTiledObject = nil
+        } else if elementName == ElementName.objectgroup.rawValue {
+            if let currentTiledObjectGroup {
+                tiledObjectGroups.append(currentTiledObjectGroup)
+            }
+            currentTiledObjectGroup = nil
         } else if elementName == ElementName.data.rawValue {
             guard let currentRawLayer = currentRawLayer else {
                 log(logLevel: .warning, message: "Data is only supported on layers")
@@ -274,9 +344,9 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     // swiftlint:disable:next large_tuple
     private func parseTileIdWithFlags(tileId: UInt32) -> (gid: UInt32,
-                                                      flipHorizontal: Bool,
-                                                      flipVertical: Bool,
-                                                      flipDiagonal: Bool) {
+                                                          flipHorizontal: Bool,
+                                                          flipVertical: Bool,
+                                                          flipDiagonal: Bool) {
         let flippedDiagonalFlag: UInt32   = 0x20000000
         let flippedVerticalFlag: UInt32   = 0x40000000
         let flippedHorizontalFlag: UInt32 = 0x80000000
@@ -431,8 +501,10 @@ private enum ElementName: String {
     case tile
     case layer
     case data
+    case object
+    case objectgroup
 }
-
+// swiftlint:disable identifier_name
 private enum AttributeName: String {
     case width
     case height
@@ -444,6 +516,8 @@ private enum AttributeName: String {
     case source
     case id
     case name
+    case x
+    case y
     case value
     case encoding
     case type
@@ -471,5 +545,21 @@ private struct RawLayer {
     let id: Int
     let name: String
     let invisible: Bool
-// swiftlint:disable:next file_length
 }
+
+public struct TiledObjectGroup {
+    public let id: String
+    public let name: String
+    public let properties: [String: Any]?
+    public let objects: [TiledObject]?
+}
+
+public struct TiledObject {
+    public let id: String
+    public let name: String
+    public let x: Int
+    public let y: Int
+    public let properties: [String: Any]?
+}
+// swiftlint:disable:next file_length
+// swiftlint:enable identifier_name

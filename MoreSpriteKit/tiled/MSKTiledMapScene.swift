@@ -7,6 +7,7 @@ open class MSKTiledMapScene: SKScene {
 
     public let layers: [SKTileMapNode]
     public let tileGroups: [SKTileGroup]
+    public let tiledObjectGroups: [TiledObjectGroup]?
     public let zPositionPerNamedLayer: [String: Int]
 
     public let mapNode = SKNode()
@@ -26,6 +27,7 @@ open class MSKTiledMapScene: SKScene {
                                                           addingCustomTileGroups: addingCustomTileGroups)
         layers = parsed.layers
         tileGroups = parsed.tileGroups
+        tiledObjectGroups = parsed.tiledObjectGroups
 
         guard let firstLayer = layers.first else {
             fatalError("No layers parsed from map: \(tiledMapName)")
