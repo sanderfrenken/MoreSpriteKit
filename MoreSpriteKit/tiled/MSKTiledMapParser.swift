@@ -137,6 +137,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                             log(logLevel: .error, message: "Invalid property boolean found: LINE[\(parser.lineNumber)]")
                             return
                         }
+                    } else if propertyType == .int {
+                        if let integerValue = Int(value) {
+                            propertyValue = integerValue
+                        } else {
+                            log(logLevel: .error, message: "Invalid property integer found: LINE[\(parser.lineNumber)]")
+                            return
+                        }
                     }
                 } else {
                     log(logLevel: .error, message: "Unsupported property type found: LINE[\(parser.lineNumber)]")
@@ -539,6 +546,7 @@ private struct RawTile {
 private enum PropertyType: String {
     case string
     case bool
+    case int
 }
 
 private struct RawLayer {
