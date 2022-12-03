@@ -33,7 +33,10 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     public func loadTilemap(filename: String,
                             allowTileImagesCache: Bool = true,
-                            addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode], tileGroups: [SKTileGroup], tiledObjectGroups: [TiledObjectGroup]?) {
+                            // swiftlint:disable:next large_tuple
+                            addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode],
+                                                                              tileGroups: [SKTileGroup],
+                                                                              tiledObjectGroups: [TiledObjectGroup]?) {
         self.allowTileImagesCache = allowTileImagesCache
         self.addingCustomTileGroups = addingCustomTileGroups
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
