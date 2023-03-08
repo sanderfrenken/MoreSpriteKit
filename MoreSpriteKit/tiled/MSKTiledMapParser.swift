@@ -258,7 +258,11 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         } else if elementName == ElementName.properties.rawValue {
             if let currentRawTile {
                 rawTiles.append(currentRawTile)
-            } else if let currentTiledObject {
+            }
+        } else if elementName == ElementName.layer.rawValue {
+            currentRawLayer = nil
+        } else if elementName == ElementName.object.rawValue {
+            if let currentTiledObject {
                 guard let currentTiledObjectGroup else {
                     return
                 }
@@ -277,9 +281,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                                                        objects: existingObjects)
                 }
             }
-        } else if elementName == ElementName.layer.rawValue {
-            currentRawLayer = nil
-        } else if elementName == ElementName.object.rawValue {
             currentTiledObject = nil
         } else if elementName == ElementName.objectgroup.rawValue {
             if let currentTiledObjectGroup {
@@ -461,6 +462,8 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         }
 
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
+        let currentSize = tileDefinition.size
+        tileDefinition.size = .init(width: currentSize.width*1.02, height: currentSize.height*1.02)
         newTileGroup.name = "\(tileId)"
         return newTileGroup
     }
