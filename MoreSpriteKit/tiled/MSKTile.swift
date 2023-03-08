@@ -1,4 +1,4 @@
-public struct MSKTile: Equatable {
+public struct MSKTile: Equatable, Hashable {
     public let column: Int
     public let row: Int
 
