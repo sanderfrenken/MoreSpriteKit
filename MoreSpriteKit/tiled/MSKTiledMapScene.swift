@@ -248,7 +248,7 @@ open class MSKTiledMapScene: SKScene {
         }
     }
 
-    @objc func handleZoomFrom(sender: UIPinchGestureRecognizer) {
+    @objc open func handleZoomFrom(sender: UIPinchGestureRecognizer) {
         if sender.numberOfTouches == 2 {
             let locationInView = sender.location(in: self.view)
             let location = self.convertPoint(fromView: locationInView)
