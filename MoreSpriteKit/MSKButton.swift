@@ -13,6 +13,7 @@ open class MSKButton: SKSpriteNode {
 
     public var onTouchesBegan: (() -> Void)?
     public var onTouchesEnded: (() -> Void)?
+    public var unclickOnTouchesEnded = true
 
     public init(size: CGSize,
                 defaultTexture: SKTexture,
@@ -36,13 +37,26 @@ open class MSKButton: SKSpriteNode {
     }
 
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        switchButtonTexture(state: .normal)
+        if unclickOnTouchesEnded {
+            switchButtonTexture(state: .normal)
+        }
         (onTouchesEnded ?? {})()
     }
 
     public func clearReferences() {
         onTouchesBegan = nil
         onTouchesEnded = nil
+    }
+
+    public func unclick() {
+        texture = defaultTexture
+    }
+
+    public func click() {
+        guard let selectedTexture else {
+            return
+        }
+        texture = selectedTexture
     }
 
     private func addAdditionalTouchNode() {
