@@ -31,12 +31,12 @@ open class MSKButton: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         switchButtonTexture(state: .selected)
         (onTouchesBegan ?? {})()
     }
 
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if unclickOnTouchesEnded {
             switchButtonTexture(state: .normal)
         }
