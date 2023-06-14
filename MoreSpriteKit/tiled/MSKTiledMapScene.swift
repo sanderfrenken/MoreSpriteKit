@@ -128,15 +128,14 @@ open class MSKTiledMapScene: SKScene {
                                 width: Int32(layer.numberOfColumns),
                                 height: Int32(layer.numberOfRows),
                                 diagonalsAllowed: diagonalsAllowed)
-        var obstacles = [GKGridGraphNode]()
         for column in 0..<layer.numberOfColumns {
             for row in 0..<layer.numberOfRows {
                 if layer.tileGroup(atColumn: column, row: row) != nil {
-                    obstacles.append(graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!)
+                    let node = graph.node(atGridPosition: vector_int2(Int32(column), Int32(row)))!
+                    node.removeConnections(to: node.connectedNodes, bidirectional: false)
                 }
             }
         }
-        graph.remove(obstacles)
         pathGraph = graph
     }
 
