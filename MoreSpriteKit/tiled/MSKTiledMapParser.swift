@@ -520,7 +520,6 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 attributes: nil
             )
         }
-        print(tiledMapFolderURL)
         return tiledMapFolderURL.appendingPathComponent(tileName)
     }
 }
