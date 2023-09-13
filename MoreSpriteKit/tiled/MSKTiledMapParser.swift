@@ -5,6 +5,7 @@ import GameplayKit
 public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     private var allowTileImagesCache: Bool = true
+    private var checkBundleForTileImages: Bool = false
 
     private var characters = ""
     private var encodingType: EncodingType = .csv
@@ -33,11 +34,13 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     public func loadTilemap(filename: String,
                             allowTileImagesCache: Bool = true,
+                            checkBundleForTileImages: Bool = false,
                             // swiftlint:disable:next large_tuple
                             addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode],
                                                                               tileGroups: [SKTileGroup],
                                                                               tiledObjectGroups: [TiledObjectGroup]?) {
         self.allowTileImagesCache = allowTileImagesCache
+        self.checkBundleForTileImages = checkBundleForTileImages
         self.addingCustomTileGroups = addingCustomTileGroups
         guard let path = Bundle.main.url(forResource: filename, withExtension: ".tmx") else {
             log(logLevel: .error, message: "Failed to locate tilemap \(filename) in bundle")
@@ -235,14 +238,14 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             // swiftlint:disable identifier_name
             guard let id = getStringValueFromAttributes(attributeDict, attributeName: .id),
                   let name = getStringValueFromAttributes(attributeDict, attributeName: .name),
-                    let x = getIntValueFromAttributes(attributeDict, attributeName: .x),
-                    let y = getIntValueFromAttributes(attributeDict, attributeName: .y)   else {
+                    let x = getDoubleValueFromAttributes(attributeDict, attributeName: .x),
+                    let y = getDoubleValueFromAttributes(attributeDict, attributeName: .y)   else {
                 log(logLevel: .error, message: "Object id and/ or name not present: LINE[\(parser.lineNumber)]")
                 parser.abortParsing()
                 return
             }
             // swiftlint:enable identifier_name
-            currentTiledObject = .init(id: id, name: name, x: x, y: y, properties: nil)
+            currentTiledObject = .init(id: id, name: name, x: Int(x), y: Int(y), properties: nil)
         }
     }
 
@@ -408,8 +411,15 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         let tileSheet = rawTileSet.image
 
         var texture: SKTexture?
-        if allowTileImagesCache {
-            if let imageData = try? Data(contentsOf: getCacheFileUrl(tileSheet: tileSheet, tileId: tileIdInSheet)) {
+        let tileName = getTileName(tileSheet: tileSheet, tileId: tileId)
+        if checkBundleForTileImages {
+            if let image = UIImage(named: tileName) {
+                texture = SKTexture.init(image: image)
+                log(logLevel: .debug, message: "Bundled image hit for image \(tileSheet)_\(tileIdInSheet)")
+            }
+        }
+        if allowTileImagesCache && texture == nil {
+            if let imageData = try? Data(contentsOf: getCacheFileUrl(tileName: tileName)) {
                 if let image = UIImage(data: imageData) {
                     texture = SKTexture.init(image: image)
                     log(logLevel: .debug, message: "Cache hit for image \(tileSheet)_\(tileIdInSheet)")
@@ -431,7 +441,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             let uimg = UIImage(cgImage: tileTexture.cgImage())
             if allowTileImagesCache {
                 if let data = uimg.pngData() {
-                    try? data.write(to: getCacheFileUrl(tileSheet: tileSheet, tileId: tileIdInSheet))
+                    try? data.write(to: getCacheFileUrl(tileName: tileName))
                 }
             }
             texture = SKTexture(image: uimg)
@@ -463,7 +473,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
         let newTileGroup = SKTileGroup(tileDefinition: tileDefinition)
         let currentSize = tileDefinition.size
-        tileDefinition.size = .init(width: currentSize.width*1.02, height: currentSize.height*1.02)
+        tileDefinition.size = .init(width: currentSize.width*1.01, height: currentSize.height*1.01)
         newTileGroup.name = "\(tileId)"
         return newTileGroup
     }
@@ -495,9 +505,23 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         return attributes[attributeName.rawValue]
     }
 
-    func getCacheFileUrl(tileSheet: String, tileId: Int) -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0].appendingPathComponent("\(tileSheet)_\(tileId)")
+    private func getTileName(tileSheet: String, tileId: Int) -> String {
+        let tileSheetName = tileSheet.replacingOccurrences(of: ".png", with: "")
+        return "\(tileSheetName)_\(tileId).png"
+    }
+
+    func getCacheFileUrl(tileName: String) -> URL {
+        let userDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let tiledMapFolderURL = userDirectory.appendingPathComponent("MSKTiledMapParser")
+        if !FileManager.default.fileExists(atPath: tiledMapFolderURL.relativePath) {
+            try? FileManager.default.createDirectory(
+                at: tiledMapFolderURL,
+                withIntermediateDirectories: false,
+                attributes: nil
+            )
+        }
+        print(tiledMapFolderURL)
+        return tiledMapFolderURL.appendingPathComponent(tileName)
     }
 }
 
