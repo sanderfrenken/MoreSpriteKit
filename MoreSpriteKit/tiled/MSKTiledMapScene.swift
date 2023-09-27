@@ -15,6 +15,48 @@ open class MSKTiledMapScene: SKScene {
     private let baseTileMapNode: SKTileMapNode
     private var pathGraph: GKGridGraph<GKGridGraphNode>?
 
+    public init(layers: [SKTileMapNode],
+                tileGroups: [SKTileGroup],
+                tiledObjectGroups: [TiledObjectGroup]?,
+                size: CGSize,
+                minimumCameraScale: CGFloat,
+                maximumCameraScale: CGFloat?,
+                zPositionPerNamedLayer: [String: Int]) {
+        self.layers = layers
+        self.tileGroups = tileGroups
+        self.tiledObjectGroups = tiledObjectGroups
+
+        guard let firstLayer = layers.first else {
+            fatalError("No layers provided")
+        }
+        baseTileMapNode = firstLayer
+
+        let maximumScalePossible = min(firstLayer.frame.width/size.width,
+                                  firstLayer.frame.height/size.height) * 0.999
+        let maximumScaleToInject: CGFloat
+        if let maximumCameraScale = maximumCameraScale {
+            if maximumCameraScale > maximumScalePossible {
+                fatalError("Maxzoom provided impossible, max possible zoom: \(maximumScalePossible).")
+            }
+            maximumScaleToInject = maximumCameraScale
+        } else {
+            maximumScaleToInject = maximumScalePossible
+        }
+        var minimumCameraScaleToInject = minimumCameraScale
+        if maximumScaleToInject < minimumCameraScaleToInject {
+            minimumCameraScaleToInject = maximumScaleToInject
+            log(logLevel: .warning, message: "minimumCameraScale is greater than maximumCameraScale")
+        }
+
+        self.cameraNode = MSKCameraNode(minimumCameraScale: minimumCameraScaleToInject,
+                                        maximumCameraScale: maximumScaleToInject)
+        self.zPositionPerNamedLayer = zPositionPerNamedLayer
+
+        super.init(size: size)
+        camera = cameraNode
+        addChild(cameraNode)
+    }
+
     public init(size: CGSize,
                 tiledMapName: String,
                 minimumCameraScale: CGFloat,
