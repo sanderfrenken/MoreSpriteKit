@@ -248,6 +248,11 @@ open class MSKTiledMapScene: SKScene {
         return nil
     }
 
+    public func setCameraTo(cameraPosition: CGPoint) {
+        cameraNode.position = cameraPosition
+        setCameraConstraints()
+    }
+
     public func scaleTo(scale: CGFloat) {
         cameraNode.setScale(scale)
         setCameraConstraints()
