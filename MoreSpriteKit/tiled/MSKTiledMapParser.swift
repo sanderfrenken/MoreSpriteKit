@@ -31,6 +31,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
     private var tiledObjectGroups = [TiledObjectGroup]()
 
     private var currentTiledObject: TiledObject?
+    private var fileName = ""
 
     public func loadTilemap(filename: String,
                             allowTileImagesCache: Bool = true,
@@ -39,6 +40,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                             addingCustomTileGroups: [SKTileGroup]? = nil) -> (layers: [SKTileMapNode],
                                                                               tileGroups: [SKTileGroup],
                                                                               tiledObjectGroups: [TiledObjectGroup]?) {
+        self.fileName = filename
         self.allowTileImagesCache = allowTileImagesCache
         self.checkBundleForTileImages = checkBundleForTileImages
         self.addingCustomTileGroups = addingCustomTileGroups
@@ -422,7 +424,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
             if let imageData = try? Data(contentsOf: getCacheFileUrl(tileName: tileName)) {
                 if let image = UIImage(data: imageData) {
                     texture = SKTexture.init(image: image)
-                    log(logLevel: .debug, message: "Cache hit for image \(tileSheet)_\(tileIdInSheet)")
+                    log(logLevel: .debug, message: "Cache hit for image \(tileName)")
                 }
             }
         }
@@ -507,7 +509,7 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
 
     private func getTileName(tileSheet: String, tileId: Int) -> String {
         let tileSheetName = tileSheet.replacingOccurrences(of: ".png", with: "")
-        return "\(tileSheetName)_\(tileId).png"
+        return "\(fileName)_\(tileSheetName)_\(tileId).png"
     }
 
     func getCacheFileUrl(tileName: String) -> URL {
