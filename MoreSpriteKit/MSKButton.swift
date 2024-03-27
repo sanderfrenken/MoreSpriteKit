@@ -32,7 +32,14 @@ open class MSKButton: SKSpriteNode {
     }
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        switchButtonTexture(state: .selected)
+        if !unclickOnTouchesEnded {
+            if texture == defaultTexture {
+                switchButtonTexture(state: .selected)
+            } else {
+                switchButtonTexture(state: .normal)
+            }
+        }
+
         (onTouchesBegan ?? {})()
     }
 
