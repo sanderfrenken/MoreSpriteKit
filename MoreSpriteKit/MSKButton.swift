@@ -38,6 +38,8 @@ open class MSKButton: SKSpriteNode {
             } else {
                 switchButtonTexture(state: .normal)
             }
+        } else {
+            switchButtonTexture(state: .selected)
         }
 
         (onTouchesBegan ?? {})()
