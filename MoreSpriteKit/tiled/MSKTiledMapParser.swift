@@ -180,10 +180,11 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 self.currentRawTile = RawTile(id: currentRawTile.id, properties: newProperties)
             } else if let currentTiledObject {
                 self.currentTiledObject = TiledObject(id: currentTiledObject.id,
-                                                  name: currentTiledObject.name,
-                                                  x: currentTiledObject.x,
-                                                  y: currentTiledObject.y,
-                                                  properties: newProperties)
+                                                      name: currentTiledObject.name,
+                                                      x: currentTiledObject.x,
+                                                      y: currentTiledObject.y,
+                                                      properties: newProperties,
+                                                      polygon: currentTiledObject.polygon)
             } else if let currentTiledObjectGroup {
                 self.currentTiledObjectGroup = TiledObjectGroup(id: currentTiledObjectGroup.id,
                                                             name: currentTiledObjectGroup.name,
@@ -239,15 +240,33 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
         } else if elementName == ElementName.object.rawValue {
             // swiftlint:disable identifier_name
             guard let id = getStringValueFromAttributes(attributeDict, attributeName: .id),
-                  let name = getStringValueFromAttributes(attributeDict, attributeName: .name),
                     let x = getDoubleValueFromAttributes(attributeDict, attributeName: .x),
                     let y = getDoubleValueFromAttributes(attributeDict, attributeName: .y)   else {
-                log(logLevel: .error, message: "Object id and/ or name not present: LINE[\(parser.lineNumber)]")
+                log(logLevel: .error, message: "Object id and/ or x/ y not present: LINE[\(parser.lineNumber)]")
                 parser.abortParsing()
                 return
             }
+            var parsedName = getStringValueFromAttributes(attributeDict, attributeName: .name)
+            let name = parsedName == nil ? UUID().uuidString : parsedName!
             // swiftlint:enable identifier_name
-            currentTiledObject = .init(id: id, name: name, x: Int(x), y: Int(y), properties: nil)
+            currentTiledObject = .init(id: id, name: name, x: Int(x), y: Int(y), properties: nil, polygon: nil)
+        } else if elementName == ElementName.polygon.rawValue {
+            if let points = getStringValueFromAttributes(attributeDict, attributeName: .points), let currentTiledObject {
+                let commaSeparatedValues = points.split(separator: " ")
+                let coords: [CGPoint] = commaSeparatedValues.map { commaSeparatedValue in
+                    let values = commaSeparatedValue.split(separator: ",")
+                    guard values.count == 2, let xValue = Double(String(values[0])), let yValue = Double(String(values[1])) else {
+                        fatalError("invalid polygon points found: LINE[\(parser.lineNumber)]")
+                    }
+                    return .init(x: xValue, y: -yValue)
+                }
+                self.currentTiledObject = TiledObject(id: currentTiledObject.id,
+                                                      name: currentTiledObject.name,
+                                                      x: currentTiledObject.x,
+                                                      y: currentTiledObject.y,
+                                                      properties: currentTiledObject.properties,
+                                                      polygon: .init(points: coords))
+            }
         }
     }
 
@@ -275,15 +294,15 @@ public final class MSKTiledMapParser: NSObject, XMLParserDelegate {
                 if var existingObjects {
                     existingObjects.append(currentTiledObject)
                     self.currentTiledObjectGroup = .init(id: currentTiledObjectGroup.id,
-                                                       name: currentTiledObjectGroup.name,
-                                                       properties: currentTiledObjectGroup.properties,
-                                                       objects: existingObjects)
+                                                         name: currentTiledObjectGroup.name,
+                                                         properties: currentTiledObjectGroup.properties,
+                                                         objects: existingObjects)
                 } else {
                     existingObjects = [currentTiledObject]
                     self.currentTiledObjectGroup = .init(id: currentTiledObjectGroup.id,
-                                                       name: currentTiledObjectGroup.name,
-                                                       properties: currentTiledObjectGroup.properties,
-                                                       objects: existingObjects)
+                                                         name: currentTiledObjectGroup.name,
+                                                         properties: currentTiledObjectGroup.properties,
+                                                         objects: existingObjects)
                 }
             }
             currentTiledObject = nil
@@ -537,6 +556,7 @@ private enum ElementName: String {
     case property
     case properties
     case tile
+    case polygon
     case layer
     case data
     case object
@@ -553,6 +573,7 @@ private enum AttributeName: String {
     case columns
     case source
     case id
+    case points
     case name
     case x
     case y
@@ -599,6 +620,11 @@ public struct TiledObject {
     public let x: Int
     public let y: Int
     public let properties: [String: Any]?
+    public let polygon: Polygon?
+}
+
+public struct Polygon {
+    public let points: [CGPoint]
 }
 // swiftlint:disable:next file_length
 // swiftlint:enable identifier_name
