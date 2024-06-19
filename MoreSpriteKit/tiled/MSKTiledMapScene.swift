@@ -225,7 +225,10 @@ open class MSKTiledMapScene: SKScene {
         guard isValidTile(tile: tile) else {
             return false
         }
-        return pathGraph?.node(atGridPosition: .init(Int32(tile.column), Int32(tile.row))) != nil
+        guard let node = pathGraph?.node(atGridPosition: .init(Int32(tile.column), Int32(tile.row))) else {
+            return false
+        }
+        return node.connectedNodes.count > 0
     }
 
     public override func willMove(from view: SKView) {

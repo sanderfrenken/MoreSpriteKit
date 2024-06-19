@@ -9,15 +9,17 @@ class DemoSceneTiledMap: MSKTiledMapScene {
 
     init(size: CGSize) {
         let zPositionPerNamedLayer = [
-            "Tile Layer 2": 1,
-            "Tile Layer 1": 2
+            "base": 1,
+            "obstacles": 2
         ]
         super.init(size: size,
-                   tiledMapName: "testmap4",
+                   tiledMapName: "exampleTiled",
                    minimumCameraScale: 0.12,
                    maximumCameraScale: nil,
                    zPositionPerNamedLayer: zPositionPerNamedLayer)
-        updatePathGraphUsing(layer: layers[0], obstacleProperty: "testProperty2", diagonalsAllowed: true)
+        if let obstacleLayer = getLayer(name: "obstacles") {
+            updatePathGraphUsing(layer: obstacleLayer, diagonalsAllowed: true)
+        }
         addChild(pathNode)
         pathNode.zPosition = 40
     }
@@ -30,6 +32,9 @@ class DemoSceneTiledMap: MSKTiledMapScene {
         super.touchesBegan(touches, with: event)
         let touchLocationInScene = touches.first!.location(in: self)
         guard let tile = getTileFromPositionInScene(position: touchLocationInScene) else {
+            return
+        }
+        if !isValidPathTile(tile: tile) {
             return
         }
         if let firstTile = firstTile {
