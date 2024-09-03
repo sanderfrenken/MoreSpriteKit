@@ -16,7 +16,6 @@ class GameScene: SKScene {
         addButton(buttonName: .radialGradient, position: CGPoint(x: 0, y: 50), scene: self)
         addButton(buttonName: .arrowNode, position: CGPoint(x: 0, y: 0), scene: self)
         addButton(buttonName: .button, position: CGPoint(x: 0, y: -50), scene: self)
-        addButton(buttonName: .tiledMap, position: CGPoint(x: 0, y: -100), scene: self)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -39,8 +38,6 @@ class GameScene: SKScene {
                 view.presentScene(DemoSceneEmitterLabel(size: sceneSize), transition: defaultTransition)
             } else if nodeNameTouched == ButtonName.button.rawValue {
                 view.presentScene(DemoSceneButton(size: sceneSize), transition: defaultTransition)
-            } else if nodeNameTouched == ButtonName.tiledMap.rawValue {
-                view.presentScene(DemoSceneTiledMap(size: view.frame.size), transition: defaultTransition)
             }
         }
     }
