@@ -1,5 +1,5 @@
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
 ![Platform support](https://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat-square)
 
 # MoreSpriteKit
