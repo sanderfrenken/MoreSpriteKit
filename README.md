@@ -121,12 +121,6 @@ let actions: [SKAction] = [.run { self.addEmitterLabel() }, .wait(forDuration: 1
 run(actions.sequence().forever())
 ```
 
-### CGFloat+Arithmetics
-Public functions to easily add/ subtract/ multiply/ divide `Int` with `CGFloat` and vice versa. Return type is of `CGFloat`.
-
-### Tiled support
-Todo
-
 ### Requirements
 
 - iOS 10.3+
@@ -135,14 +129,17 @@ Todo
 
 ### Installation
 
-#### Carthage
+#### Swift Package Manager
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate MoreSpriteKit into your Xcode project using Carthage, specify it in your `Cartfile`:
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
 
+Once you have your Swift package set up, adding MoreSpriteKit as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/sanderfrenken/MoreSpriteKit", .upToNextMajor(from: "1.0.0"))
+]
 ```
-github "sanderfrenken/MoreSpriteKit" "master"
-```
-
 #### Manually
 
 If you prefer not to use any of the aforementioned dependency managers, you can integrate the desired sources in your project manually, by adding the corresponding Swift files to your project.
@@ -153,10 +150,6 @@ We use Swiftlint from [Realm](https://realm.io/) to lint our code. SwiftLint has
 More info can be found on [SwiftLint](https://github.com/realm/SwiftLint).
 Details about the specific settings for this project can be found in the `.swiftlint.yml` file.
 
-### Demo app
-
-This project contains an application target being a demo project that demonstrates the usage of all offered functionalities.
-
 ### Other information
 
 - If you think that something is missing or would like to propose new feature, please create an issue.
@@ -165,6 +158,7 @@ This project contains an application target being a demo project that demonstrat
 ### Games using MoreSpriteKit
 The following games are using MoreSpriteKit:
 
+- [Battledom](https://sites.google.com/view/battledom/home)
 - [Herodom](https://sites.google.com/view/herodom/home)
 - [Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
 - [Connexx](https://apps.apple.com/nl/app/connexx/id1198001137)
