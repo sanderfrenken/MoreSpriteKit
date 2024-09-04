@@ -9,6 +9,10 @@ In addition it provides extensions to make complicated tasks a bit easier, and i
 
 All sources are written in Swift.
 
+## Example usage
+
+For examples using MoreSpriteKit, please refer to the demo project [MoreSpriteKitDemo](https://github.com/sanderfrenken/MoreSpriteKitDemo)
+
 ### MSKAnimatedLabel
 
 SKNode that draws specified text over multiple lines, separated per newLine character.
