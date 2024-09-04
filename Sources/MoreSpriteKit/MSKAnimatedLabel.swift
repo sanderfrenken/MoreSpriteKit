@@ -89,7 +89,7 @@ public class MSKAnimatedLabel: SKNode {
 
     private func addTouchNodeForAutocomplete() {
         let touchNode = SKSpriteNode(color: .clear,
-                                     size: .init(width: labelWidth, 
+                                     size: .init(width: labelWidth,
                                                  height: CGFloat(labels.count) * marginVertical))
         touchNode.position.y -= touchNode.frame.height/2
         addChild(touchNode)
