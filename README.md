@@ -4,18 +4,17 @@
 
 # MoreSpriteKit
 
-This repository offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/).
-In addition it provides extensions to make complicated tasks a bit easier, and improve the readability of your code.
+This package offers additional node types and effects which you can use in combination with [SpriteKit](https://developer.apple.com/spritekit/). In addition it provides extensions to make complicated tasks a bit easier and improve the readability of your code.
 
 All sources are written in Swift.
 
 ## Example usage
 
-For examples using MoreSpriteKit, please refer to the demo project [MoreSpriteKitDemo](https://github.com/sanderfrenken/MoreSpriteKitDemo)
+For examples using `MoreSpriteKit`, please refer to the demo project [MoreSpriteKitDemo](https://github.com/sanderfrenken/MoreSpriteKitDemo)
 
 ### MSKAnimatedLabel
 
-SKNode that draws specified text over multiple lines, separated per newLine character.
+`SKNode` that draws specified text over multiple lines, separated per `newLine` character.
 The text typing can also be animated, meaning each character will be added after a specified interval, creating a typewriter effect.
 
 Use public initializer:
@@ -32,13 +31,13 @@ public init(text: String,
             finishTypingOnTouch: Bool = false)
 ```
 Where the text can be separated by new line characters to indicate start of new line.
-Specify a specific `labelWidth` to wrap all text to a specific width. MSKAnimatedLabel will create new lines where necessary.
+Specify a specific `labelWidth` to wrap all text to a specific width. `MSKAnimatedLabel` will create new lines where necessary.
 When the specified `labelWidth` is to small for a certain CharacterSequence, a fatal error is thrown.
 
 When `durationPerCharacter <= 0.0`, all lines will be drawn immediately without any animation.
 When `finishTypingOnTouch equals true`, all remaining lines will be drawn instantly without any animation when a user taps the label.
 
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/animated-label.gif)
+![Preview](/Previews/animated-label.gif)
 
 ### MSKEmitterLabel
 
@@ -55,7 +54,7 @@ public init(text: String,
 ```
 
 
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/emitter-label.gif)
+![Preview](/Previews/emitter-label.gif)
 
 ### SKAction+Spiral
 
@@ -68,7 +67,7 @@ SKAction.spiral(startRadius: radius,
                 centerPoint: .zero,
                 duration: 1.5)
 ```
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/spiral-action.gif)
+![Preview](/Previews/spiral-action.gif)
 
 ### SKAction+Shake
 
@@ -81,7 +80,7 @@ SKAction.shake(shakeDuration: 0.2,
                intensity: arc4random_uniform(40)+10,
                duration: 3)
 ```
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/shake-action.gif)
+![Preview](/Previews/shake-action.gif)
 
 
 ### SKShapeNode+Arrow
@@ -96,7 +95,7 @@ let arrow = SKShapeNode(arrowWithFillColor: randomColor,
                         headWidth: 50,
                         headLength: 30)
 ```
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/skshapenode-arrow.png)
+![Preview](/Previews/skshapenode-arrow.png)
 
 ### SKTexture+RadialGradient
 Extension on SKTexture allowing to create a texture with a radial gradiant. Could be used for example for range nodes, indicating a creatures attack range.
@@ -112,7 +111,7 @@ let radialTexture = SKTexture(radialGradientWithColors: radialGradientColors,
 
 let radialNode = SKSpriteNode(texture: radialTexture)
 ```
-![Preview](https://github.com/sanderfrenken/MoreSpriteKit/blob/master/Previews/sktexture-gradient.png)
+![Preview](/Previews/sktexture-gradient.png)
 
 
 ### SKAction+TimingMode and Array+SKAction
@@ -146,11 +145,11 @@ dependencies: [
 ```
 #### Manually
 
-If you prefer not to use any of the aforementioned dependency managers, you can integrate the desired sources in your project manually, by adding the corresponding Swift files to your project.
+If you prefer not to use any of the aforementioned dependency managers you can integrate the desired sources in your project manually, by adding the corresponding Swift files to your project.
 
 ### SwiftLint
 
-We use Swiftlint from [Realm](https://realm.io/) to lint our code. SwiftLint has to be installed on your device.
+We use Swiftlint from [Realm](https://realm.io/) to lint our code.
 More info can be found on [SwiftLint](https://github.com/realm/SwiftLint).
 Details about the specific settings for this project can be found in the `.swiftlint.yml` file.
 
