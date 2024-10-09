@@ -41,7 +41,7 @@ When `finishTypingOnTouch equals true`, all remaining lines will be drawn instan
 
 ### MSKEmitterLabel
 
-SKNode that draws specified text using an emitter that follows the characters outlines, over a given duration.
+`SKNode` that draws specified text using an emitter that follows the characters outlines, over a given duration.
 
 Use public initializer:
 ```
@@ -71,7 +71,7 @@ SKAction.spiral(startRadius: radius,
 
 ### SKAction+Shake
 
-Extension on SKAction allowing to create a shake effect.
+Extension on `SKAction` allowing to create a shake effect.
 *NB preview as GIF is not very useful, for proper demonstration please see the example application.*
 
 Usage:
@@ -84,7 +84,7 @@ SKAction.shake(shakeDuration: 0.2,
 
 
 ### SKShapeNode+Arrow
-Extension on SKShapeNode allowing to create a node with an arrow shape.
+Extension on `SKShapeNode` allowing to create a node with an arrow shape.
 Usage:
 ```
 let arrow = SKShapeNode(arrowWithFillColor: randomColor,
@@ -98,7 +98,7 @@ let arrow = SKShapeNode(arrowWithFillColor: randomColor,
 ![Preview](/Previews/skshapenode-arrow.png)
 
 ### SKTexture+RadialGradient
-Extension on SKTexture allowing to create a texture with a radial gradiant. Could be used for example for range nodes, indicating a creatures attack range.
+Extension on `SKTexture` allowing to create a texture with a radial gradiant. Could be used for example for range nodes, indicating a creatures attack range.
 Usage:
 ```
 let radialGradientSize = CGSize(width: 150, height: 150)
