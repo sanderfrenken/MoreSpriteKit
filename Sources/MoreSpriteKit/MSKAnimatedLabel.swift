@@ -157,8 +157,9 @@ public class MSKAnimatedLabel: SKNode {
 
         run(.repeatForever(.sequence([
             .wait(forDuration: durationPerCharacter),
-            .run { self.typeText()}
-            ])), withKey: timerActionKey)
+            .run { [weak self] in
+                self?.typeText()
+            } ])), withKey: timerActionKey)
     }
 
     private func typeText() {
