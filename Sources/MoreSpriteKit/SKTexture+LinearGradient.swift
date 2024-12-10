@@ -2,7 +2,7 @@ import SpriteKit
 
 public extension SKTexture {
 
-    convenience init(radialGradientWithColors colors: [UIColor], locations: [CGFloat], size: CGSize) {
+    convenience init(linearGradientWithColors colors: [UIColor], locations: [CGFloat], size: CGSize) {
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { context in
             let colorSpace = CGColorSpaceCreateDeviceRGB()
@@ -16,9 +16,7 @@ public extension SKTexture {
                 fatalError("Failed creating gradient.")
             }
 
-            let radius = max(size.width, size.height) / 2.0
-            let midPoint = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
-            context.cgContext.drawRadialGradient(gradient, startCenter: midPoint, startRadius: 0, endCenter: midPoint, endRadius: radius, options: [])
+            context.cgContext.drawLinearGradient(gradient, start: .init(x: 0, y: size.height), end: .init(x: size.width, y: size.height), options: [])
         }
         self.init(image: image)
     }
