@@ -18,7 +18,8 @@ For examples using `MoreSpriteKit`, please refer to the demo project [MoreSprite
 The text typing can also be animated, meaning each character will be added after a specified interval, creating a typewriter effect.
 
 Use public initializer:
-```
+
+```Swift
 public init(text: String,
             horizontalAlignment: SKLabelHorizontalAlignmentMode = .center,
             durationPerCharacter: Double = 0.05,
@@ -44,7 +45,8 @@ When `finishTypingOnTouch equals true`, all remaining lines will be drawn instan
 `SKNode` that draws specified text using an emitter that follows the characters outlines, over a given duration.
 
 Use public initializer:
-```
+
+```Swift
 public init(text: String,
             font: UIFont,
             emitterName: String,
@@ -60,7 +62,8 @@ public init(text: String,
 
 Extension on SKAction allowing to create a spiraling movement.
 Usage:
-```
+
+```Swift
 SKAction.spiral(startRadius: radius,
                 endRadius: radius-50,
                 totalAngle: CGFloat(.pi * 2.0),
@@ -75,7 +78,8 @@ Extension on `SKAction` allowing to create a shake effect.
 *NB preview as GIF is not very useful, for proper demonstration please see the example application.*
 
 Usage:
-```
+
+```Swift
 SKAction.shake(shakeDuration: 0.2,
                intensity: arc4random_uniform(40)+10,
                duration: 3)
@@ -86,7 +90,8 @@ SKAction.shake(shakeDuration: 0.2,
 ### SKShapeNode+Arrow
 Extension on `SKShapeNode` allowing to create a node with an arrow shape.
 Usage:
-```
+
+```Swift
 let arrow = SKShapeNode(arrowWithFillColor: randomColor,
                         strokeColor: randomColor,
                         lineWidth: 4,
@@ -100,7 +105,8 @@ let arrow = SKShapeNode(arrowWithFillColor: randomColor,
 ### SKTexture+RadialGradient
 Extension on `SKTexture` allowing to create a texture with a radial gradiant. Could be used for example for range nodes, indicating a creatures attack range.
 Usage:
-```
+
+```Swift
 let radialGradientSize = CGSize(width: 150, height: 150)
 let radialGradientColors = [UIColor.red, UIColor.blue, UIColor.green, UIColor.blue, UIColor.orange]
 let radialGradientLocations: [CGFloat] = [0, 0.25, 0.45, 0.65, 1.0]
@@ -112,6 +118,23 @@ let radialTexture = SKTexture(radialGradientWithColors: radialGradientColors,
 let radialNode = SKSpriteNode(texture: radialTexture)
 ```
 ![Preview](/Previews/sktexture-gradient.png)
+
+### SKTexture+LinearGradient
+Extension on `SKTexture` allowing to create a texture with a linear gradiant. Could be used for example for a healthbar.
+Usage:
+
+```Swift
+let linearGradientSize = CGSize(width: 150, height: 30)
+let linearGradientColors: [UIColor] = [.red, .yellow, .green, .yellow, .red]
+let linearGradientLocations: [CGFloat] = [0, 0.35, 0.5, 0.65, 1.0]
+
+let linearGradientTexture = SKTexture(linearGradientWithColors: linearGradientColors,
+                                      locations: linearGradientLocations,
+                                      size: linearGradientSize)
+
+let gradientNode = SKSpriteNode(texture: linearGradientTexture)
+```
+![Preview](/Previews/sktexture-Lineargradient.png)
 
 
 ### SKAction+TimingMode and Array+SKAction
