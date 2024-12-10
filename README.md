@@ -134,7 +134,7 @@ let linearGradientTexture = SKTexture(linearGradientWithColors: linearGradientCo
 
 let gradientNode = SKSpriteNode(texture: linearGradientTexture)
 ```
-![Preview](/Previews/sktexture-Lineargradient.png)
+![Preview](/Previews/sktexture-linearGradient.png)
 
 
 ### SKAction+TimingMode and Array+SKAction
