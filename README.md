@@ -184,7 +184,7 @@ Details about the specific settings for this project can be found in the `.swift
 ### Games using MoreSpriteKit
 The following games are using MoreSpriteKit:
 
-- [Battledom](https://sites.google.com/view/battledom/home)
+- [Battledom](https://sanderfrenken.github.io/battledom-site/)
 - [Herodom](https://sites.google.com/view/herodom/home)
 - [Numbed](https://apps.apple.com/nl/app/numbed/id841975891)
 - [Connexx](https://apps.apple.com/nl/app/connexx/id1198001137)
